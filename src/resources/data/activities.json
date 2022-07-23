@@ -1,0 +1,146 @@
+[
+  {
+    "activity": "go to the beach",
+    "yearbook": "",
+    "exposure": "H",
+    "hunger": "L"
+  },
+  {
+    "activity": "see a movie",
+    "yearbook": "",
+    "exposure": "L",
+    "hunger": "M"
+  },
+  {
+    "activity": "go golfing",
+    "yearbook": "",
+    "exposure": "M",
+    "hunger": "H"
+  },
+  {
+    "activity": "go swimming",
+    "yearbook": "",
+    "exposure": "M",
+    "hunger": "M"
+  },
+  {
+    "activity": "meet up at the library",
+    "yearbook": "",
+    "exposure": "L",
+    "hunger": "L"
+  },
+  {
+    "activity": "walk my dog",
+    "yearbook": "",
+    "exposure": "L",
+    "hunger": "H"
+  },
+  {
+    "activity": "chat online",
+    "yearbook": "",
+    "exposure": "L",
+    "hunger": "L"
+  },
+  {
+    "activity": "play a video game",
+    "yearbook": "",
+    "exposure": "L",
+    "hunger": "M"
+  },
+  {
+    "activity": "talk on the phone",
+    "yearbook": "",
+    "exposure": "L",
+    "hunger": "L"
+  },
+  {
+    "activity": "help me move",
+    "yearbook": "",
+    "exposure": "M",
+    "hunger": "H"
+  },
+  {
+    "activity": "do chores with me",
+    "yearbook": "",
+    "exposure": "L",
+    "hunger": "H"
+  },
+  {
+    "activity": "go to church",
+    "yearbook": "",
+    "exposure": "H",
+    "hunger": "L"
+  },
+  {
+    "activity": "lurk in the graveyard",
+    "yearbook": "",
+    "exposure": "L",
+    "hunger": "H"
+  },
+  {
+    "activity": "cover my shift at work",
+    "yearbook": "",
+    "exposure": "L",
+    "hunger": "L"
+  },
+  {
+    "activity": "chill at the mall",
+    "yearbook": "",
+    "exposure": "L",
+    "hunger": "H"
+  },
+  {
+    "activity": "go for a drive",
+    "yearbook": "",
+    "exposure": "M",
+    "hunger": "L"
+  },
+  {
+    "activity": "go shopping",
+    "yearbook": "",
+    "exposure": "M",
+    "hunger": "M"
+  },
+  {
+    "activity": "visit the arcade",
+    "yearbook": "",
+    "exposure": "L",
+    "hunger": "M"
+  },
+  {
+    "activity": "grab a pizza",
+    "yearbook": "",
+    "exposure": "M",
+    "hunger": "L"
+  },
+  {
+    "activity": "watch the baseball game",
+    "yearbook": "",
+    "exposure": "H",
+    "hunger": "M"
+  },
+  {
+    "activity": "do a photoshoot",
+    "yearbook": "",
+    "exposure": "M",
+    "hunger": "L"
+  },
+  {
+    "activity": "do homework",
+    "yearbook": "",
+    "exposure": "L",
+    "hunger": "M"
+  },
+  {
+    "activity": "cook a meal",
+    "yearbook": "",
+    "exposure": "L",
+    "hunger": "L"
+  },
+  {
+    "activity": "carpool",
+    "yearbook": "",
+    "exposure": "M",
+    "hunger": "M"
+  }
+]

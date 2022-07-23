@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "noUnusedLocals": false,
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "target": "es6",
+    "allowJs": true,
+    "declaration": true,
+    "typeRoots": ["node_modules/@types", "src/types"]
+  },
+  "exclude": [
+    "node_modules","src/ts/example/*"
+  ],
+  "include": [
+    "src/**/*"
+  ]
+}

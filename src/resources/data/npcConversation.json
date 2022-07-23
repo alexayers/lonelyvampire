@@ -1,0 +1,50 @@
+{
+  "phoneCall": {
+    "phoneCallStart": [
+
+    ],
+    "middlePhoneCall": [
+
+    ]
+  },
+  "activity": {
+    "start": [
+      "What's up?",
+      "What do you want?",
+      "What do you need?",
+      "Why did you want to see me?",
+      "Who are you again?",
+      "Heeeey! We finally get to hang out, awesome!",
+      "I'm so excited for the party! Oh, wait, are you going... ?",
+      "I love to [topLevelActivity], don't you?",
+      "This is okay, but can't we [topLevelActivity] instead?",
+      "Remind me why I'm [neutralActivity] again?",
+      "You don't get out much, amiright?",
+      "So, do you do this often?"
+    ],
+    "middle": [
+      "Uh huh...",
+      "Wait, what?",
+      "Ugh, I know right?!",
+      "*stares at cell phone*",
+      "Isn't this great!",
+      "Don't you sit behind me in history?",
+      "*burps*",
+      "So you just *draws elaborate diagram,* then *complex gesture.* \n And THEN *multiple lines of seemingly involved dialogue that takes a long time.* \n Here, I'll show you. *Two hours later* And that's it! Ready to try?"
+    ],
+    "goodEnding": [
+      "Hey, this was great. We should do it again sometime. See you at the party!",
+      "Oh. my. GOD."
+    ],
+    "badEnding": [
+      "No, thanks anyhow. I think.",
+      "Umm, I'm sick... *cough* Sorry! *cough*,",
+      "What's that? I hear my mom calling. Gotta go!",
+      "I forgot I'm busy, with that... thing. Y'know. Bye!",
+      "I need to go wash my hair for the next 6 hours. Later!",
+      "Well, I *used* to like [topLevelActivity]... sigh",
+      "I have to go home for dinner. Like, real food, not... uh... anyhow, bye!"
+    ]
+  }
+
+}

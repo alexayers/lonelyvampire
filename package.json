@@ -1,0 +1,38 @@
+{
+  "name": "lonelyvampire",
+  "version": "0.0.1",
+  "description": "Lonely Vampire",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --open",
+    "prod": "webpack --production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexayers/lonelyvampire.git"
+  },
+  "author": "Alex Ayers",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexayers/lonelyvampire/issues"
+  },
+  "homepage": "https://github.com/alexayers/lonelyvampire#readme",
+  "devDependencies": {
+    "@faker-js/faker": "^7.3.0",
+    "@types/uuid": "^8.3.4",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.3.1",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
+  },
+  "dependencies": {
+    "@alexayers/teenytinytwodee": "0.0.8",
+    "uuid": "^8.3.2"
+  }
+}
