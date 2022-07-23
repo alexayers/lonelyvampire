@@ -57,7 +57,7 @@ export class YearBookScreen implements GameScreen {
         NpcManager._npcs.forEach((npc) => {
 
             Renderer.print(npc.firstName + " " + npc.lastName, 50, 100 + offsetY, "Arial", 16, new Color(0,0,0));
-            Renderer.print(npc.favoriteActivities.join(","), 50, 120 + offsetY, "Arial", 16, new Color(0,0,0));
+            Renderer.print("Likes: " + npc.yearBook, 50, 120 + offsetY, "Arial", 16, new Color(0,0,0));
             Renderer.print("Press (" + i + ") to call " +  npc.firstName, 50, 140 + offsetY, "Arial", 16, new Color(0,0,0));
             i++;
 

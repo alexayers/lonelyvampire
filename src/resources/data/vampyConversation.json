@@ -1,13 +1,34 @@
 {
   "phoneCall": {
-
+    "start": [
+      "Hi [name], how's it going? What are you up to today?",
+      "Is this [name]? This is Vampy. Do you want to hang out?",
+      "[name]! Uh... hello! Um, if you're not busy, would you want to meet up?",
+      "Uh, hi [name]. So I'm new, and was wondering if you were free today?"
+    ],
+    "goodChoice": [
+      "Yeah, I [favoriteActivity] all the time. Well, starting today I do, heh heh",
+      "Totally! [favoriteActivity] sounds great!",
+      "Yeah! Actually I've never [favoriteActivity] before. But I guess today I can start",
+      "I love to [favoriteActivity]! Definitely. Yep, love it.",
+      "[favoriteActivity]! Yes, I loooooove that, of course I do."
+    ],
+    "neutralChoice": [
+      "That's cool. Or maybe we could [neutralActivity] instead?",
+      "Oh, uh. That's an idea. Actually I... can't [favoriteActivity] on days that end in Y. How about [neutralActivity] instead?",
+      "Sure, everyone [favoriteActivity]. But I was thinking we could [neutralActivity] instead. Y'know, try something new?"
+    ],
+    "badChoice": [
+      "[favoriteActivity] is so old hat. Let's [dislikedActivity] instead!",
+      "Or... crazy idea... we could [dislikedActivity] instead. ... Hello?"
+    ]
   },
   "activity": {
     "start": [
       "Thanks for meeting up with me, [name]",
       "So, do you do this often?",
-      "What's up, [name]",
-      "How's it going, [name]",
+      "What's up, [name]?",
+      "How's it going, [name]?",
       "Yeah, I do this all the time. Well, starting today I do, heh heh"
     ],
     "middle": [

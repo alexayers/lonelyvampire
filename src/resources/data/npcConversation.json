@@ -1,10 +1,26 @@
 {
   "phoneCall": {
-    "phoneCallStart": [
-
+    "start": [
+      "How's it going! Sure, how about we [favoriteActivity]?",
+      "What's up? I'm [favoriteActivity] soon. But I guess you could tag along?",
+      "Yeah, okay. Some of us are [favoriteActivity]. We can meet up there if you want. Or not.",
+      "What do you need? Oh, are you inviting me to [favoriteActivity]?",
+      "*static* Did you say [favoriteActivity]? *static* And you're paying?"
     ],
-    "middlePhoneCall": [
-
+    "goodEnding": [
+      "Sweet! See you there. Don't forget your sunscreen!",
+      "Cool! See you in a bit. Bring a hat!",
+      "Okay! This should be... interesting.",
+      "Hmm. See you soon."
+    ],
+    "badEnding": [
+      "Nope, sorry!",
+      "No, thanks anyhow. I think.",
+      "Umm, I'm sick... *cough* Sorry! *cough*",
+      "What's that? I hear my mom calling. Gotta go!",
+      "I forgot I'm busy, with that... thing. Y'know. Bye!",
+      "I need to go wash my hair for the next 6 hours. Later!",
+      "Who is this again? I don't know you. *click*"
     ]
   },
   "activity": {
@@ -30,7 +46,7 @@
       "Isn't this great!",
       "Don't you sit behind me in history?",
       "*burps*",
-      "So you just *draws elaborate diagram,* then *complex gesture.* \n And THEN *multiple lines of seemingly involved dialogue that takes a long time.* \n Here, I'll show you. *Two hours later* And that's it! Ready to try?"
+      "So you just *draws elaborate diagram,* then *complex gesture.*"
     ],
     "goodEnding": [
       "Hey, this was great. We should do it again sometime. See you at the party!",

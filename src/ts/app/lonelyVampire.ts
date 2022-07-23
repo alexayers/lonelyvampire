@@ -1,8 +1,7 @@
 import {GameScreen, TeenyTinyTwoDeeApp} from "@alexayers/teenytinytwodee";
-import {ExampleGameScreen} from "./exampleGameScreen";
 import {ActivityScreen} from "../screens/activityScreen";
 import {ApartmentScreen} from "../screens/apartmentScreen";
-import {Activities} from "../data/activities";
+import {ActivityManager} from "../data/activityManager";
 import {YearBookScreen} from "../screens/yearBookScreen";
 import {NpcManager} from "../data/npc";
 
@@ -11,7 +10,7 @@ export class LonelyVampire extends TeenyTinyTwoDeeApp {
 
     init() {
 
-        Activities.init();
+        ActivityManager.init();
         NpcManager.init(6);
 
 

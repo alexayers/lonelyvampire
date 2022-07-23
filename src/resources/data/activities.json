@@ -1,146 +1,134 @@
 [
   {
     "activity": "go to the beach",
-    "yearbook": "",
+    "yearbook": "Hangin' at the beach!",
     "exposure": "H",
-    "hunger": "L"
+    "neutral": false
   },
   {
     "activity": "see a movie",
-    "yearbook": "",
+    "yearbook": "Anything directed by Murnau",
     "exposure": "L",
-    "hunger": "M"
+    "neutral": true
   },
   {
     "activity": "go golfing",
-    "yearbook": "",
+    "yearbook": "Practicing my swing",
     "exposure": "M",
-    "hunger": "H"
+    "neutral": false
   },
   {
     "activity": "go swimming",
-    "yearbook": "",
+    "yearbook": "Doing laps in the pool",
     "exposure": "M",
-    "hunger": "M"
+    "neutral": true
   },
   {
     "activity": "meet up at the library",
-    "yearbook": "",
+    "yearbook": "Burying my nose in a great book",
     "exposure": "L",
-    "hunger": "L"
+    "neutral": true
   },
   {
     "activity": "walk my dog",
-    "yearbook": "",
+    "yearbook": "My dog, VanHelsing <3",
     "exposure": "L",
-    "hunger": "H"
-  },
-  {
-    "activity": "chat online",
-    "yearbook": "",
-    "exposure": "L",
-    "hunger": "L"
+    "neutral": false
   },
   {
     "activity": "play a video game",
-    "yearbook": "",
+    "yearbook": "Being e1i+e",
     "exposure": "L",
-    "hunger": "M"
+    "neutral": false
   },
   {
     "activity": "talk on the phone",
-    "yearbook": "",
+    "yearbook": "Getting the latest gossip",
     "exposure": "L",
-    "hunger": "L"
+    "neutral": false
   },
   {
     "activity": "help me move",
-    "yearbook": "",
+    "yearbook": "Being with my family :)",
     "exposure": "M",
-    "hunger": "H"
+    "neutral": false
   },
   {
-    "activity": "do chores with me",
-    "yearbook": "",
+    "activity": "paint a fence with me",
+    "yearbook": "Volunteering in my community",
     "exposure": "L",
-    "hunger": "H"
+    "neutral": true
   },
   {
     "activity": "go to church",
-    "yearbook": "",
+    "yearbook": "Bringing light to the world",
     "exposure": "H",
-    "hunger": "L"
+    "neutral": false
   },
   {
     "activity": "lurk in the graveyard",
-    "yearbook": "",
+    "yearbook": "Becoming one with the night mother",
     "exposure": "L",
-    "hunger": "H"
+    "neutral": false
   },
   {
     "activity": "cover my shift at work",
-    "yearbook": "",
+    "yearbook": "#Hustle culture",
     "exposure": "L",
-    "hunger": "L"
+    "neutral": false
   },
   {
     "activity": "chill at the mall",
-    "yearbook": "",
+    "yearbook": "Whatever *shrug*",
     "exposure": "L",
-    "hunger": "H"
+    "neutral": true
   },
   {
     "activity": "go for a drive",
-    "yearbook": "",
+    "yearbook": "Working on my Mustang",
     "exposure": "M",
-    "hunger": "L"
+    "neutral": true
   },
   {
     "activity": "go shopping",
-    "yearbook": "",
+    "yearbook": "Scoring a deal at the latest sale",
     "exposure": "M",
-    "hunger": "M"
+    "neutral": false
   },
   {
     "activity": "visit the arcade",
-    "yearbook": "",
+    "yearbook": "Feeding quarters to the quarter gods",
     "exposure": "L",
-    "hunger": "M"
+    "neutral": false
   },
   {
     "activity": "grab a pizza",
-    "yearbook": "",
+    "yearbook": "Being with my best buds",
     "exposure": "M",
-    "hunger": "L"
+    "neutral": false
   },
   {
     "activity": "watch the baseball game",
-    "yearbook": "",
+    "yearbook": "Go UVs!",
     "exposure": "H",
-    "hunger": "M"
+    "neutral": false
   },
   {
     "activity": "do a photoshoot",
-    "yearbook": "",
+    "yearbook": "Future influencer",
     "exposure": "M",
-    "hunger": "L"
+    "neutral": false
   },
   {
     "activity": "do homework",
-    "yearbook": "",
+    "yearbook": "Model UN",
     "exposure": "L",
-    "hunger": "M"
+    "neutral": true
   },
   {
-    "activity": "cook a meal",
-    "yearbook": "",
+    "activity": "cook at a barbecue",
+    "yearbook": "Refining my recipes",
     "exposure": "L",
-    "hunger": "L"
-  },
-  {
-    "activity": "carpool",
-    "yearbook": "",
-    "exposure": "M",
-    "hunger": "M"
+    "neutral":false
   }
 ]

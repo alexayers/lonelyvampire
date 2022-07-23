@@ -1,17 +1,17 @@
 import {
     Color,
-    GameEvent,
     GameScreen,
+    getRandomArrayElement,
     KeyboardInput,
     MouseButton,
     Renderer,
-    RGBtoHex,
     ScreenChangeEvent
 } from "@alexayers/teenytinytwodee";
 import {Vampire} from "../data/vampire";
 import {Npc, NpcManager} from "../data/npc";
 import {EventBus} from "@alexayers/teenytinytwodee/dist/ts/lib/event/eventBus";
 import {ConversationManager} from "../data/conversation";
+import {Activity, ActivityManager} from "../data/activityManager";
 
 
 export class ActivityScreen implements GameScreen {
@@ -23,6 +23,7 @@ export class ActivityScreen implements GameScreen {
     private _npcDialogue : string = "";
     private _vampyDialogue : string = ";"
     private _npc: Npc;
+    private _activity: Activity;
 
     init(): void {
         this._color = new Color(0,0,0);
@@ -35,6 +36,10 @@ export class ActivityScreen implements GameScreen {
         this._npcDialogue = "";
         this._vampyDialogue = "";
         this._npc = NpcManager.getNpc(Vampire.calling);
+
+        let activityName = this._npc.favoriteActivity;
+        this._activity = ActivityManager.getActivity(activityName);
+
     }
 
     onExit(): void {
@@ -46,16 +51,27 @@ export class ActivityScreen implements GameScreen {
         if (keyCode == KeyboardInput.V) {
             if (!this._vampyOpeningComplete) {
                 this._vampyDialogue = ConversationManager.getVampyOpeningLine();
-
                 this._vampyOpeningComplete = true;
             } else {
                 this._npcDialogue = ConversationManager.getNpcMiddleLine();
                 this._vampyDialogue = ConversationManager.getVampyMiddleLine();
+
+                console.log(this._activity);
+
+                switch (this._activity.exposure) {
+                    case 'L':
+                        Vampire.exposure += 1;
+                        break;
+                    case 'M':
+                        Vampire.exposure += 2;
+                        break;
+                    case 'H':
+                        Vampire.exposure += 3;
+                        break;
+                }
+
+
             }
-        } else  if (keyCode == KeyboardInput.B) {
-        //    this._friendShip--;
-        } else if (keyCode == KeyboardInput.C) {
-       //     this._friendShip++;
         } else if (keyCode == KeyboardInput.H) {
             EventBus.publish(new ScreenChangeEvent("apartment"));
         }
@@ -81,10 +97,15 @@ export class ActivityScreen implements GameScreen {
 
         Renderer.print(this._npc.firstName + " : " + this._npcDialogue, 350,350, "Arial", 12, this._color);
 
-        Renderer.print("(V)ampy: " + this._vampyDialogue, 350,400, "Arial", 12, this._color);
+        Renderer.print("Vampy: " + this._vampyDialogue, 350,400, "Arial", 12, this._color);
 
-        Renderer.print("Exposure: " + Vampire.exposure, 200, 50,"Arial", 25, this._color);
-        Renderer.print("Total Friends: " + Vampire.totalFriends, 500, 50,"Arial", 25, this._color);
+        Renderer.print("Activity: " + this._activity.activity, 100, 200,"Arial", 25, this._color);
+
+        Renderer.print("Press V to talk", 100, 300,"Arial", 25, this._color);
+
+        Renderer.print("Hunger: " + Vampire.hunger, 100, 50,"Arial", 25, this._color);
+        Renderer.print("Exposure: " + Vampire.exposure, 300, 50,"Arial", 25, this._color);
+        Renderer.print("Total Friends: " + Vampire.totalFriends, 700, 50,"Arial", 25, this._color);
        // Renderer.print("Friendship: " + this._friendShip, 700, 50,"Arial", 25, this._color);
     }
 
