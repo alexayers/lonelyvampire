@@ -4,14 +4,16 @@ import {ApartmentScreen} from "../screens/apartmentScreen";
 import {ActivityManager} from "../data/activityManager";
 import {YearBookScreen} from "../screens/yearBookScreen";
 import {NpcManager} from "../data/npc";
+import {FaceManager} from "../data/face";
 
 
 export class LonelyVampire extends TeenyTinyTwoDeeApp {
 
     init() {
 
+        FaceManager.init();
         ActivityManager.init();
-        NpcManager.init(6);
+        NpcManager.init(15);
 
 
         let gameScreens : Map<string, GameScreen> = new Map<string, GameScreen>();

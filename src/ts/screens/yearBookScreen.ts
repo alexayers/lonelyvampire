@@ -1,16 +1,63 @@
-import {Color, GameScreen, KeyboardInput, MouseButton, Renderer, ScreenChangeEvent} from "@alexayers/teenytinytwodee";
+import {
+    ButtonWidget,
+    Color,
+    GameScreen, getRandomBetween,
+    KeyboardInput,
+    MouseButton,
+    Renderer,
+    ScreenChangeEvent,
+    WidgetManager
+} from "@alexayers/teenytinytwodee";
 import {NpcManager} from "../data/npc";
 import {Vampire} from "../data/vampire";
 import {EventBus} from "@alexayers/teenytinytwodee/dist/ts/lib/event/eventBus";
+import {FaceManager} from "../data/face";
+import {ButtonWidgetBuilder} from "@alexayers/teenytinytwodee/dist/ts/lib/ui/buttonWidget";
 
 export class YearBookScreen implements GameScreen {
 
+    private _backgroundColor: Color;
+    private _widgetManager: WidgetManager;
+
     init(): void {
 
+        this._backgroundColor = new Color(190,190, 190);
+        this._widgetManager = new WidgetManager();
+
+        let offsetY: number = 100;
+        let offsetX: number = 50;
+        let i: number = 0;
+
+
+        NpcManager._npcs.forEach((npc) => {
+
+            let button: ButtonWidget = new ButtonWidgetBuilder(offsetX,offsetY, 128, 128)
+                .withHoverColor(new Color(0,0,90))
+                .withCallBack(()=>{
+                    Vampire.calling = npc.id;
+                    EventBus.publish(new ScreenChangeEvent("apartment"));
+                })
+                .build();
+
+
+            offsetY += 225;
+
+            this._widgetManager.register(button);
+
+            i++;
+
+            if (i == 3) {
+                offsetY = 100;
+                offsetX += 180;
+                i = 0;
+            }
+
+        });
     }
 
     keyboard(keyCode: number): void {
 
+        /*
         if (keyCode == KeyboardInput.ONE) {
             Vampire.calling = NpcManager.getNpcs()[0].id;
             EventBus.publish(new ScreenChangeEvent("apartment"));
@@ -29,17 +76,24 @@ export class YearBookScreen implements GameScreen {
         }else if (keyCode == KeyboardInput.SIX) {
             Vampire.calling = NpcManager.getNpcs()[5].id;
             EventBus.publish(new ScreenChangeEvent("apartment"));
+        }*/
+
+        if (keyCode == KeyboardInput.ESCAPE) {
+            EventBus.publish(new ScreenChangeEvent("apartment"));
         }
 
     }
 
     logicLoop(): void {
+
     }
 
     mouseClick(x: number, y: number, mouseButton: MouseButton): void {
+        this._widgetManager.mouseClick(x,y, mouseButton);
     }
 
     mouseMove(x: number, y: number): void {
+        this._widgetManager.mouseMove(x,y);
     }
 
     onEnter(): void {
@@ -49,23 +103,37 @@ export class YearBookScreen implements GameScreen {
     }
 
     renderLoop(): void {
-        Renderer.print("Yearbook Class of 1983", 50,50, "Arial", 50, new Color(0,0,0));
+        Renderer.rect(0,0, 1024,768, this._backgroundColor);
 
-        let offsetY :number = 0;
-        let i : number = 1;
+        Renderer.print("Yearbook Class of 1983", 250,50, "Arial", 50, new Color(0,0,0));
+
+        let offsetY :number = 100;
+        let offsetX : number = 50;
+        let i : number = 0;
 
         NpcManager._npcs.forEach((npc) => {
 
-            Renderer.print(npc.firstName + " " + npc.lastName, 50, 100 + offsetY, "Arial", 16, new Color(0,0,0));
-            Renderer.print("Likes: " + npc.yearBook, 50, 120 + offsetY, "Arial", 16, new Color(0,0,0));
-            Renderer.print("Press (" + i + ") to call " +  npc.firstName, 50, 140 + offsetY, "Arial", 16, new Color(0,0,0));
+            npc.face.renderYearbook(offsetX,offsetY, 128);
+            offsetY += 150;
+            Renderer.print(npc.firstName + " " + npc.lastName, offsetX,  offsetY, "Arial", 16, new Color(0,0,0));
+            offsetY += 25;
+
+            Renderer.print("Likes: " + npc.yearBook, offsetX,  offsetY, "Arial", 10, new Color(0,0,0));
             i++;
 
-            offsetY += 100;
+            offsetY += 50;
+
+            if (i == 3) {
+                offsetY = 100;
+                offsetX += 180;
+                i =0;
+            }
 
         });
 
+        this._widgetManager.render();
 
+        Renderer.print("(Escape) to return to apartment", 400, 80, "Arial", 14, new Color(0,0,0));
     }
 
 }

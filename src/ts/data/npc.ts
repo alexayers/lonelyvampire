@@ -2,6 +2,7 @@ import {faker} from '@faker-js/faker';
 import {Activity, ActivityManager} from "./activityManager";
 import {logger, LogType} from "@alexayers/teenytinytwodee";
 import { v4 as uuidv4 } from 'uuid';
+import {Face, FaceManager} from "./face";
 
 export class Npc {
 
@@ -12,6 +13,7 @@ export class Npc {
     private _favoriteActivity:string = "";
     private _yearBook: string = "";
     private _dislikes: string = "";
+    private _face: Face;
 
     constructor() {
 
@@ -75,6 +77,15 @@ export class Npc {
     set dislikes(value: string) {
         this._dislikes = value;
     }
+
+
+    get face(): Face {
+        return this._face;
+    }
+
+    set face(value: Face) {
+        this._face = value;
+    }
 }
 
 export class NpcManager {
@@ -95,7 +106,7 @@ export class NpcManager {
             npc.favoriteActivity = activity.activity;
             npc.yearBook = activity.yearbook;
             npc.dislikes = ActivityManager.getRandomActivity().activity;
-
+            npc.face = FaceManager.getRandomFace();
 
 
             logger(LogType.INFO, "Created new npc ->" + JSON.stringify(npc));

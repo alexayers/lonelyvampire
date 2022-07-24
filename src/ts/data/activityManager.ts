@@ -1,4 +1,4 @@
-import {getRandomArrayElement} from "@alexayers/teenytinytwodee";
+import {Color, getRandomArrayElement} from "@alexayers/teenytinytwodee";
 
 const json = require("../../resources/data/activities.json");
 
@@ -11,6 +11,9 @@ export class ActivityManager {
     static init() {
 
         json.forEach((activity : Activity) => {
+
+            let color: Color = new Color(activity.color.red, activity.color.green, activity.color.blue);
+            activity.backgroundColor = color;
             ActivityManager._activityMap.set(activity.activity, activity);
 
             if (activity.neutral) {
@@ -42,4 +45,6 @@ export interface Activity {
     exposure: string
     yearbook: string
     neutral: boolean
+    color: any
+    backgroundColor: Color
 }

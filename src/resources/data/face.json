@@ -1,0 +1,102 @@
+{
+  "body": [
+    "body.png"
+  ],
+  "neck": [
+    "neck.png",
+    "neck2.png",
+    "neck3.png",
+    "neck4.png"
+  ],
+  "head": [
+    "head.png",
+    "head2.png",
+    "head3.png",
+    "head4.png"
+  ],
+  "eyes": [
+    "eyes1.png",
+    "eyes2.png",
+    "eyes3.png",
+    "eyes4.png",
+    "eyes5.png",
+    "eyes6.png",
+    "eyes7.png",
+    "eyes8.png",
+    "eyes9.png",
+    "eyes10.png",
+    "eyes11.png",
+    "eyes12.png"
+  ],
+  "eyebrows": [
+    "eyebrows1.png",
+    "eyebrows2.png",
+    "eyebrows3.png",
+    "eyebrows4.png"
+  ],
+  "hair": [
+    "hair1.png",
+    "hair2.png",
+    "hair3.png",
+    "hair4.png",
+    "hair5.png",
+    "hair6.png",
+    "hair7.png",
+    "hair8.png",
+    "hair9.png",
+    "hair10.png",
+    "hair11.png",
+    "hair12.png",
+    "hair13.png",
+    "hair14.png",
+    "hair15.png",
+    "hair16.png",
+    "hair17.png",
+    "hair18.png",
+    "hair19.png",
+    "hair20.png",
+    "hair21.png",
+    "hair22.png",
+    "hair23.png",
+    "hair24.png"
+  ],
+  "mouth": [
+    "mouth1.png",
+    "mouth2.png",
+    "mouth3.png",
+    "mouth4.png",
+    "mouth5.png",
+    "mouth6.png",
+    "mouth7.png",
+    "mouth8.png",
+    "mouth9.png",
+    "mouth10.png"
+  ],
+  "nose": [
+    "nose1.png",
+    "nose2.png",
+    "nose3.png",
+    "nose4.png",
+    "nose5.png",
+    "nose6.png",
+    "nose7.png",
+    "nose8.png",
+    "nose9.png"
+  ],
+  "shirt": [
+    "shirt1.png",
+    "shirt2.png",
+    "shirt3.png",
+    "shirt4.png",
+    "shirt5.png",
+    "shirt6.png",
+    "shirt7.png",
+    "shirt8.png",
+    "shirt9.png",
+    "shirt10.png",
+    "shirt11.png",
+    "shirt12.png",
+    "shirt13.png",
+    "shirt14.png"
+  ]
+}

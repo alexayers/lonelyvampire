@@ -26,7 +26,10 @@ export class ApartmentScreen implements GameScreen {
     private _canDoActivity: boolean = false;
     private _npc:Npc;
 
+    private _backgroundColor: Color;
+
     init(): void {
+        this._backgroundColor = new Color(56,56,56);
     }
 
     keyboard(keyCode: number): void {
@@ -48,6 +51,7 @@ export class ApartmentScreen implements GameScreen {
                 } else {
                     this._closingNPCDialogue = ConversationManager.getNpcNegativeClosing();
                     this._canDoActivity = false;
+                    this._npc.friendShip--;
                 }
 
                 this._callOver = true;
@@ -55,6 +59,7 @@ export class ApartmentScreen implements GameScreen {
                 this._closingNPCDialogue = ConversationManager.getNpcNegativeClosing();
                 this._callOver = true;
                 this._canDoActivity = false;
+                this._npc.friendShip--;
             }
         }
 
@@ -70,13 +75,16 @@ export class ApartmentScreen implements GameScreen {
     }
 
     renderLoop(): void {
-
+        Renderer.rect(0,0, 1024,768, this._backgroundColor);
         Renderer.print("You at your apartment", 50,50, "Arial", 50, new Color(0,0,0));
 
         Renderer.print("Y: Look at yearbook", 50,100, "Arial", 50, new Color(0,0,0));
 
         if (Vampire.calling) {
             let offsetY : number= 200;
+
+
+
 
             Renderer.print("Vampy: " + this._openingVampDialogue, 50, offsetY, "Arial", 15, new Color(0,0,0));
             offsetY += 50;
@@ -112,8 +120,12 @@ export class ApartmentScreen implements GameScreen {
 
             }
 
+            this._npc.face.renderConversation(40,250, 512);
+
+
         }
 
+        Renderer.rect(0, 700, 1024, 70, new Color(0,0,0));
 
     }
 

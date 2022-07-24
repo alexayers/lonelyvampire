@@ -3,132 +3,242 @@
     "activity": "go to the beach",
     "yearbook": "Hangin' at the beach!",
     "exposure": "H",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "see a movie",
     "yearbook": "Anything directed by Murnau",
     "exposure": "L",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": true
   },
   {
     "activity": "go golfing",
     "yearbook": "Practicing my swing",
     "exposure": "M",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "go swimming",
     "yearbook": "Doing laps in the pool",
     "exposure": "M",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": true
   },
   {
     "activity": "meet up at the library",
     "yearbook": "Burying my nose in a great book",
     "exposure": "L",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": true
   },
   {
     "activity": "walk my dog",
     "yearbook": "My dog, VanHelsing <3",
     "exposure": "L",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "play a video game",
     "yearbook": "Being e1i+e",
     "exposure": "L",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "talk on the phone",
     "yearbook": "Getting the latest gossip",
     "exposure": "L",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "help me move",
     "yearbook": "Being with my family :)",
     "exposure": "M",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "paint a fence with me",
     "yearbook": "Volunteering in my community",
     "exposure": "L",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": true
   },
   {
     "activity": "go to church",
     "yearbook": "Bringing light to the world",
     "exposure": "H",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "lurk in the graveyard",
     "yearbook": "Becoming one with the night mother",
     "exposure": "L",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "cover my shift at work",
     "yearbook": "#Hustle culture",
     "exposure": "L",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "chill at the mall",
     "yearbook": "Whatever *shrug*",
     "exposure": "L",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": true
   },
   {
     "activity": "go for a drive",
     "yearbook": "Working on my Mustang",
     "exposure": "M",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": true
   },
   {
     "activity": "go shopping",
     "yearbook": "Scoring a deal at the latest sale",
     "exposure": "M",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "visit the arcade",
     "yearbook": "Feeding quarters to the quarter gods",
     "exposure": "L",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "grab a pizza",
     "yearbook": "Being with my best buds",
     "exposure": "M",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "watch the baseball game",
     "yearbook": "Go UVs!",
     "exposure": "H",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "do a photoshoot",
     "yearbook": "Future influencer",
     "exposure": "M",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": false
   },
   {
     "activity": "do homework",
     "yearbook": "Model UN",
     "exposure": "L",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral": true
   },
   {
     "activity": "cook at a barbecue",
     "yearbook": "Refining my recipes",
     "exposure": "L",
+    "color": {
+      "red":25,
+      "green": 90,
+      "blue": 24
+    },
     "neutral":false
   }
 ]

@@ -1,8 +1,9 @@
 import {
     Color,
     GameScreen,
-    getRandomArrayElement,
     KeyboardInput,
+    logger,
+    LogType,
     MouseButton,
     Renderer,
     ScreenChangeEvent
@@ -39,6 +40,8 @@ export class ActivityScreen implements GameScreen {
 
         let activityName = this._npc.favoriteActivity;
         this._activity = ActivityManager.getActivity(activityName);
+
+        logger(LogType.INFO, JSON.stringify(this._activity));
 
     }
 
@@ -92,6 +95,7 @@ export class ActivityScreen implements GameScreen {
     }
 
     renderLoop(): void {
+        Renderer.rect(0,0, 1024,768, this._activity.backgroundColor);
         Renderer.rect(50,350, 256,512, new Color(0,0,0));
         Renderer.rect(950,350, 256,512, new Color(0,0,0));
 
@@ -103,7 +107,7 @@ export class ActivityScreen implements GameScreen {
 
         Renderer.print("Press V to talk", 100, 300,"Arial", 25, this._color);
 
-        Renderer.print("Hunger: " + Vampire.hunger, 100, 50,"Arial", 25, this._color);
+        Renderer.print("Friendship: " + this._npc.friendShip, 100, 50,"Arial", 25, this._color);
         Renderer.print("Exposure: " + Vampire.exposure, 300, 50,"Arial", 25, this._color);
         Renderer.print("Total Friends: " + Vampire.totalFriends, 700, 50,"Arial", 25, this._color);
        // Renderer.print("Friendship: " + this._friendShip, 700, 50,"Arial", 25, this._color);
