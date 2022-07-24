@@ -35,7 +35,7 @@ export class YearBookScreen implements GameScreen {
                 .withHoverColor(new Color(0,0,90))
                 .withCallBack(()=>{
                     Vampire.calling = npc.id;
-                    EventBus.publish(new ScreenChangeEvent("apartment"));
+                    EventBus.publish(new ScreenChangeEvent("phoneCall"));
                 })
                 .build();
 

@@ -1,7 +1,6 @@
-import {Color, getRandomArrayElement} from "@alexayers/teenytinytwodee";
+import {Color, getRandomArrayElement, Sprite} from "@alexayers/teenytinytwodee";
 
 const json = require("../../resources/data/activities.json");
-
 
 export class ActivityManager {
     private static _activityMap: Map<string, Activity> = new Map<string, Activity>();
@@ -15,6 +14,23 @@ export class ActivityManager {
             let color: Color = new Color(activity.color.red, activity.color.green, activity.color.blue);
             activity.backgroundColor = color;
             ActivityManager._activityMap.set(activity.activity, activity);
+
+
+            switch (activity.background) {
+                case "arcade":
+                    activity.backgroundSprite = new Sprite(1024, 768, require("../../resources/image/backgrounds/arcade.png"));
+                    break;
+                case "beach":
+                    activity.backgroundSprite = new Sprite(1024, 768, require("../../resources/image/backgrounds/beach.png"));
+                    break;
+                case "movie":
+                    activity.backgroundSprite = new Sprite(1024, 768, require("../../resources/image/backgrounds/movie.png"));
+                    break;
+                default:
+                    activity.backgroundSprite = new Sprite(1024, 768, require("../../resources/image/backgrounds/beach.png"));
+                    break;
+
+            }
 
             if (activity.neutral) {
                 ActivityManager._neutralActivities.push(activity.activity);
@@ -45,6 +61,8 @@ export interface Activity {
     exposure: string
     yearbook: string
     neutral: boolean
+    background: string
+    backgroundSprite: Sprite
     color: any
     backgroundColor: Color
 }

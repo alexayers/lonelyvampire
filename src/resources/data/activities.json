@@ -3,6 +3,7 @@
     "activity": "go to the beach",
     "yearbook": "Hangin' at the beach!",
     "exposure": "H",
+    "background": "beach",
     "color": {
       "red":25,
       "green": 90,
@@ -14,6 +15,7 @@
     "activity": "see a movie",
     "yearbook": "Anything directed by Murnau",
     "exposure": "L",
+    "background": "movie",
     "color": {
       "red":25,
       "green": 90,
@@ -25,6 +27,7 @@
     "activity": "go golfing",
     "yearbook": "Practicing my swing",
     "exposure": "M",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -36,6 +39,7 @@
     "activity": "go swimming",
     "yearbook": "Doing laps in the pool",
     "exposure": "M",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -47,6 +51,7 @@
     "activity": "meet up at the library",
     "yearbook": "Burying my nose in a great book",
     "exposure": "L",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -58,6 +63,7 @@
     "activity": "walk my dog",
     "yearbook": "My dog, VanHelsing <3",
     "exposure": "L",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -69,6 +75,7 @@
     "activity": "play a video game",
     "yearbook": "Being e1i+e",
     "exposure": "L",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -80,6 +87,7 @@
     "activity": "talk on the phone",
     "yearbook": "Getting the latest gossip",
     "exposure": "L",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -91,6 +99,7 @@
     "activity": "help me move",
     "yearbook": "Being with my family :)",
     "exposure": "M",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -102,6 +111,7 @@
     "activity": "paint a fence with me",
     "yearbook": "Volunteering in my community",
     "exposure": "L",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -113,6 +123,7 @@
     "activity": "go to church",
     "yearbook": "Bringing light to the world",
     "exposure": "H",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -124,6 +135,7 @@
     "activity": "lurk in the graveyard",
     "yearbook": "Becoming one with the night mother",
     "exposure": "L",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -135,6 +147,7 @@
     "activity": "cover my shift at work",
     "yearbook": "#Hustle culture",
     "exposure": "L",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -146,6 +159,7 @@
     "activity": "chill at the mall",
     "yearbook": "Whatever *shrug*",
     "exposure": "L",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -157,6 +171,7 @@
     "activity": "go for a drive",
     "yearbook": "Working on my Mustang",
     "exposure": "M",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -168,6 +183,7 @@
     "activity": "go shopping",
     "yearbook": "Scoring a deal at the latest sale",
     "exposure": "M",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -179,6 +195,7 @@
     "activity": "visit the arcade",
     "yearbook": "Feeding quarters to the quarter gods",
     "exposure": "L",
+    "background": "arcade",
     "color": {
       "red":25,
       "green": 90,
@@ -190,6 +207,7 @@
     "activity": "grab a pizza",
     "yearbook": "Being with my best buds",
     "exposure": "M",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -201,6 +219,7 @@
     "activity": "watch the baseball game",
     "yearbook": "Go UVs!",
     "exposure": "H",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -212,6 +231,7 @@
     "activity": "do a photoshoot",
     "yearbook": "Future influencer",
     "exposure": "M",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -223,6 +243,7 @@
     "activity": "do homework",
     "yearbook": "Model UN",
     "exposure": "L",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
@@ -234,6 +255,7 @@
     "activity": "cook at a barbecue",
     "yearbook": "Refining my recipes",
     "exposure": "L",
+    "background": "",
     "color": {
       "red":25,
       "green": 90,
