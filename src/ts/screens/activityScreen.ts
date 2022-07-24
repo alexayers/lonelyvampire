@@ -16,6 +16,7 @@ import {ActivityConversationManager} from "../data/conversation";
 import arrayShuffle from "array-shuffle";
 
 export enum ConversationFlow {
+    ACTIVITY_START,
     VAMPY_GREETING,
     VAMPY_FIRST_CHOICE,
     VAMPY_COMMITMENT,
@@ -68,7 +69,7 @@ export class ActivityScreen implements GameScreen {
 
 
         Vampire.calling = NpcManager._npcs[0].id;
-        this._conversationFlow = ConversationFlow.VAMPY_GREETING;
+
 
         this._emojis.push("🐶");
         this._emojis.push("🐥");
@@ -101,8 +102,9 @@ export class ActivityScreen implements GameScreen {
 
         let activityName = this._npc.favoriteActivity;
         this._activity = ActivityManager.getActivity(activityName);
+        this._conversationFlow = ConversationFlow.ACTIVITY_START;
 
-        this._npcDialogue = ActivityConversationManager.getNpcGreetingLine();
+       // this._npcDialogue = ActivityConversationManager.getNpcGreetingLine();
 
         this._npcTokens = this._dialogue.split(" ");
         this._word = 0;
@@ -274,6 +276,11 @@ export class ActivityScreen implements GameScreen {
                 this._conversationDelay = Date.now();
 
                 switch (this._conversationFlow) {
+                    case ConversationFlow.ACTIVITY_START:
+                        this.calculateExposure();
+                        this._npcDialogue = ActivityConversationManager.getNpcGreetingLine();
+                        this._conversationFlow = ConversationFlow.VAMPY_GREETING;
+                        break;
                     case ConversationFlow.VAMPY_GREETING:
                         this.calculateExposure();
                         this._vampyDialogue = ActivityConversationManager.getVampyGreeting();
@@ -336,8 +343,6 @@ export class ActivityScreen implements GameScreen {
     }
 
     renderLoop(): void {
-        // Renderer.rect(0, 0, 1024, 768, this._activity.backgroundColor);
-
         if (this._activity.backgroundSprite != null) {
             Renderer.renderImage(this._activity.backgroundSprite.image, 0, 0, 1024, 768);
         }
@@ -348,18 +353,7 @@ export class ActivityScreen implements GameScreen {
             this.renderDialogue();
         }
 
-
-        /*
-        let offsetX : number = 100;
-        for (let i = 0; i < this._word; i++) {
-            Renderer.print(this._npcTokens[i] , offsetX, 200, "Arial", 12, new Color(0,0,0));
-            offsetX += Renderer.calculateTextWidth(this._npcTokens[i] + " ", "normal 12px arial");
-        }*/
-
-
         this._npc.face.renderConversation(-80, 350, 384);
-
-
         this._npc.face.renderConversation(680, 350, 384);
 
         Renderer.rect(0, 700, 1024, 70, new Color(0, 0, 0));
@@ -403,10 +397,13 @@ export class ActivityScreen implements GameScreen {
 
         let npcWidth: number = Renderer.calculateTextWidth(this._npcDialogue, "normal arial 12px")
 
-        Renderer.rect(148, 298, npcWidth * 1.5 + 5, 105, new Color(0, 0, 0));
-        Renderer.rect(150, 300, npcWidth * 1.5, 100, new Color(52, 189, 235));
 
-        this.wordWrap(this._npcDialogue, 180, 340, 400, 300);
+        if (this._npcDialogue != "") {
+            Renderer.rect(148, 298, npcWidth * 1.5 + 5, 105, new Color(0, 0, 0));
+            Renderer.rect(150, 300, npcWidth * 1.5, 100, new Color(52, 189, 235));
+
+            this.wordWrap(this._npcDialogue, 180, 340, 400, 300);
+        }
 
 
 
