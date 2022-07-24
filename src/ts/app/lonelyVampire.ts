@@ -23,7 +23,7 @@ export class LonelyVampire extends TeenyTinyTwoDeeApp {
 
         this.run({
             "audioEnabled": true
-        }, gameScreens, "apartment");
+        }, gameScreens, "activity");
     }
 
 }

@@ -10,7 +10,7 @@ import {
 import {EventBus} from "@alexayers/teenytinytwodee/dist/ts/lib/event/eventBus";
 import {Vampire} from "../data/vampire";
 import {Npc, NpcManager} from "../data/npc";
-import {ConversationManager} from "../data/conversation";
+import {PhoneConversationManager} from "../data/conversation";
 
 
 export class ApartmentScreen implements GameScreen {
@@ -41,22 +41,22 @@ export class ApartmentScreen implements GameScreen {
 
         if (Vampire.calling && !this._callOver) {
             if (keyCode == KeyboardInput.ONE) {
-                this._closingNPCDialogue = ConversationManager.getNpcPositiveClosing();
+                this._closingNPCDialogue = PhoneConversationManager.getNpcPositivePhoneClosing();
                 this._callOver = true;
                 this._canDoActivity = true;
             } else if (keyCode == KeyboardInput.TWO) {
                 if (getRandomBetween(1, 100) < 50) {
-                    this._closingNPCDialogue = ConversationManager.getNpcPositiveClosing();
+                    this._closingNPCDialogue = PhoneConversationManager.getNpcPositivePhoneClosing();
                     this._canDoActivity = true;
                 } else {
-                    this._closingNPCDialogue = ConversationManager.getNpcNegativeClosing();
+                    this._closingNPCDialogue = PhoneConversationManager.getNpcNegativePhoneClosing();
                     this._canDoActivity = false;
                     this._npc.friendShip--;
                 }
 
                 this._callOver = true;
             } else if (keyCode == KeyboardInput.THREE) {
-                this._closingNPCDialogue = ConversationManager.getNpcNegativeClosing();
+                this._closingNPCDialogue = PhoneConversationManager.getNpcNegativePhoneClosing();
                 this._callOver = true;
                 this._canDoActivity = false;
                 this._npc.friendShip--;
@@ -135,11 +135,11 @@ export class ApartmentScreen implements GameScreen {
             this._callOver = false;
             this._canDoActivity = false;
 
-            this._openingVampDialogue = ConversationManager.getVampyOpeningLine();
-            this._openingNPCDialogue = ConversationManager.getNpcOpeningPhoneLine();
-            this._openingVampyPositiveDialogue = ConversationManager.getVampyPositiveOpeningPhoneLine();
-            this._openingVampyNeutralDialogue = ConversationManager.getVampyNeutralOpeningPhoneLine();
-            this._openingVampyNegativeDialogue = ConversationManager.getVampyNegativeOpeningPhoneLine();
+            this._openingVampDialogue = PhoneConversationManager.getVampyOpeningPhoneLine();
+            this._openingNPCDialogue = PhoneConversationManager.getNpcOpeningPhoneLine();
+            this._openingVampyPositiveDialogue = PhoneConversationManager.getVampyPositiveOpeningPhoneLine();
+            this._openingVampyNeutralDialogue = PhoneConversationManager.getVampyNeutralOpeningPhoneLine();
+            this._openingVampyNegativeDialogue = PhoneConversationManager.getVampyNegativeOpeningPhoneLine();
         }
     }
 

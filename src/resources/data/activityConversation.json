@@ -1,0 +1,126 @@
+{
+  "opening": {
+    "npc": {
+      "preferredActivity": [
+        "How's it going! I love to [favoriteActivity], don't you?",
+        "What's up? You're new around here, amiright? This is, like, the most popular thing to do in town",
+        "Heeeey! We finally get to hang out, awesome! I had no idea you liked [favoriteActivity] too!",
+        "Hi! This will be fun, I always wondered if you *could* do this. Y'know."
+      ],
+      "neutralActivity": [
+        "Hey. Why did you want to hang out *here* when we could have gone [favoriteActivity] instead?",
+        "Oh, you're here. Remind me why I'm [favoriteActivity] again?",
+        "All my friends are at [favoriteActivity]. But you know, I've always been a leader, not a follower. *waits for compliment*",
+        "Hi. I hope no one sees me here. Uh, I mean... let's do this!"
+      ]
+    },
+    "vampy": {
+      "greeting": [
+        "Thanks for meeting up with me, [name].",
+        "How's it going, [name].",
+        "Hi [name]!",
+        "What's up, [name].",
+        "[name], hello!"
+      ],
+      "responses": {
+        "good": [
+          "Yeah, this will be ... FUN *big fang-y grin*",
+          "Actually, I've never done this before. First time for everything, heh!",
+          "Oh, I do this all the time. Well, starting today I do, heh *sweats*",
+          "Yeah, this was my favorite thing to do in my old town. But that was many cent-- err, MONTHs ago."
+        ],
+        "neutral": [
+          "*looks at feet* *looks at other feet* *looks at hands* Let's do this, I guess",
+          "Yeah, this is good. Maybe we could do [neutralActivity] next?",
+          "So, you like [favoriteActivity]? Yeah, I used to do this in my old town. *yawns*"
+        ],
+        "bad": [
+          "*stares at [name]'s jugular* Oh! Uh, sorry, I didn't have lunch",
+          "I went outside to see you, [name]. I hope you appreciate that!"
+        ]
+      }
+    }
+  },
+  "activityCommitment": {
+    "npc": {
+      "good": [
+        "Awesome! I do this every other week when Saturn is in Aquarius. Ready?",
+        "Cool. Listen, I can show you how if you need. Kay?",
+        "Well, lemme show ya how we do this here in Sol City!",
+        "*~Totally~* that thing you just said. Okay, follow me!"
+      ],
+      "neutral": [
+        "*stares at watch* So...",
+        "I'm so excited for the party! Oh, wait, are you going... ?",
+        "*burps*"
+      ],
+      "bad": [
+        "Uh huh... hey, is that Buffy over there? *runs away*",
+        "Listen if you don't want to be here, I'm gonna go."
+      ]
+    },
+    "vampy": {
+      "good": [
+        "Uh, okay, let's do this!",
+        "Yes.",
+        "Okay!"
+      ],
+      "bad": [
+        "Errr... I have to go. NOW. Bye!",
+        "No, this is a mistake. I'm leaving now.",
+        "Actually I forgot I'm ... allergic ... to this. Sorry!",
+        "Well would you look at the time! I'm actually late for a ... thing. Um, later!"
+      ]
+    }
+  },
+  "interstitial": [
+    "*some time later*",
+    "*90 minutes later*",
+    "*several commercial breaks later*",
+    "*a few awkward teenage exchanges later*"
+  ],
+  "closing": {
+    "npc": [
+      "... anyhow, that's why I decided to only do a double major. Neat, huh?",
+      "... so I just *complex gesture,* then *another complex gesture.* And FINALLY *talks for a long time, this seems really complicated* And that's how I bested the leprechaun!",
+      "... and that's how the story of how I became captain of the Garlic Lovers' Club. Cool, right?",
+      "... after that experience, I can't wear red socks anymore. Weird, huh?",
+      "... then I said, \"no way!\" and he was all \"yes way!\" and I was all \"no way!,\" Get it?"
+    ]
+  },
+  "final": {
+    "vampy": {
+      "good": [
+        "Wow! Well this was fun. See you later?",
+        "Hey, this was great. I'm gonna go fee- uh, home now. See you around!",
+        "Turns out I really like [favoriteActivity]. Thanks for hanging with me!",
+        "Amazing, that is best! Who knew [favoriteActivity] could be so fun,?"
+      ],
+      "neutral": [
+        "I don't get it, but okay! Actually, I have to go now. Thanks for this!",
+        "*snores* Wait, what? Oh, yeah, me too! Well, good seeing you I think!",
+        "Okay! Yeah, definitely whatever you said. I need to go water my tarantula now."
+      ],
+      "bad": [
+        "*stares* So hot... so... HUNGRY",
+        "Hey, what's that over there?",
+        "*lunges at [name]*"
+      ]
+    },
+    "npc": {
+      "good": [
+        "Yeah, catch you at the party I hope! Later!",
+        "*high fives* We should do this again sometime! See you at the party!",
+        "Oh. My. GAWD. I had the best time. I'll call you before the party, 'kay? Bye!",
+        "Totally. Talk soon! Don't forget about the party!"
+      ],
+      "bad": [
+        "*scoffs* I *used* to like [favoriteActivity]... See you never!",
+        "Well, I have to go home for dinner. Like, real food, not... uh... bye!",
+        "*cough* Umm *cough* I'm think I'm coming down with something... *runs away*",
+        "Well at least I get a good story out of this. Don't call me again!"
+      ]
+    }
+  }
+
+}
