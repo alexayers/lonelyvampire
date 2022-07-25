@@ -95,7 +95,7 @@ export class ActivityScreen implements GameScreen {
     onEnter(): void {
         this._delay = Date.now();
         this._points = 0;
-        this._currentQuestion;
+
         this._npcDialogue = "";
         this._vampyDialogue = "";
 
@@ -106,7 +106,7 @@ export class ActivityScreen implements GameScreen {
         this._activity = ActivityManager.getActivity(activityName);
         this._conversationFlow = ConversationFlow.ACTIVITY_START;
 
-       // this._npcDialogue = ActivityConversationManager.getNpcGreetingLine();
+        this._fadingIn = 1;
 
         this._npcTokens = this._dialogue.split(" ");
         this._word = 0;
