@@ -6,6 +6,7 @@ import {YearBookScreen} from "../screens/yearBookScreen";
 import {NpcManager} from "../data/npc";
 import {FaceManager} from "../data/face";
 import {PhoneCallScreen} from "../screens/phoneCallScreen";
+import {FaceScreen} from "../screens/faceScreen";
 
 
 export class LonelyVampire extends TeenyTinyTwoDeeApp {
@@ -22,6 +23,7 @@ export class LonelyVampire extends TeenyTinyTwoDeeApp {
         gameScreens.set("apartment", new ApartmentScreen());
         gameScreens.set("yearbook", new YearBookScreen());
         gameScreens.set("phoneCall", new PhoneCallScreen());
+        gameScreens.set("face", new FaceScreen());
 
         this.run({
             "audioEnabled": true

@@ -1,6 +1,6 @@
 import {getRandomArrayElement} from "@alexayers/teenytinytwodee";
 import {NpcManager} from "./npc";
-import {Vampire} from "./vampire";
+import {Vampy} from "./vampy";
 import {ActivityManager} from "./activityManager";
 
 const vampyConversation= require("../../resources/data/vampyConversation.json");
@@ -16,7 +16,7 @@ export class PhoneConversationManager {
         let line = npcConversation.phoneCall.start[randIdx];
 
         if (line.includes("favoriteActivity")) {
-            let npc = NpcManager.getNpc(Vampire.calling);
+            let npc = NpcManager.getNpc(Vampy.calling);
             line = line.replace("[favoriteActivity]", npc.favoriteActivity);
         }
 
@@ -28,7 +28,7 @@ export class PhoneConversationManager {
         let line = vampyConversation.phoneCall.goodChoice[randIdx];
 
         if (line.includes("favoriteActivity")) {
-            let npc = NpcManager.getNpc(Vampire.calling);
+            let npc = NpcManager.getNpc(Vampy.calling);
             line = line.replace("[favoriteActivity]", npc.favoriteActivity);
         }
 
@@ -40,12 +40,12 @@ export class PhoneConversationManager {
         let line = vampyConversation.phoneCall.neutralChoice[randIdx];
 
         if (line.includes("favoriteActivity")) {
-            let npc = NpcManager.getNpc(Vampire.calling);
+            let npc = NpcManager.getNpc(Vampy.calling);
             line = line.replace("[favoriteActivity]", npc.favoriteActivity);
         }
 
         if (line.includes("neutralActivity")) {
-            let npc = NpcManager.getNpc(Vampire.calling);
+            let npc = NpcManager.getNpc(Vampy.calling);
             line = line.replace("[neutralActivity]", ActivityManager.getRandomNeutralActivity().activity);
         }
 
@@ -57,12 +57,12 @@ export class PhoneConversationManager {
         let line = vampyConversation.phoneCall.badChoice[randIdx];
 
         if (line.includes("favoriteActivity")) {
-            let npc = NpcManager.getNpc(Vampire.calling);
+            let npc = NpcManager.getNpc(Vampy.calling);
             line = line.replace("[favoriteActivity]", npc.favoriteActivity);
         }
 
         if (line.includes("dislikedActivity")) {
-            let npc = NpcManager.getNpc(Vampire.calling);
+            let npc = NpcManager.getNpc(Vampy.calling);
             line = line.replace("[dislikedActivity]", npc.dislikes);
         }
 
@@ -84,7 +84,7 @@ export class PhoneConversationManager {
         let line : string = vampyConversation.phoneCall.start[randIdx];
 
         if (line.includes("name")) {
-            let npc = NpcManager.getNpc(Vampire.calling);
+            let npc = NpcManager.getNpc(Vampy.calling);
             line = line.replace("[name]", npc.firstName);
         }
 
@@ -97,7 +97,7 @@ export class PhoneConversationManager {
 export class ActivityConversationManager {
 
     private static substitutions(line : string) : string {
-        let npc = NpcManager.getNpc(Vampire.calling);
+        let npc = NpcManager.getNpc(Vampy.calling);
 
         console.log(npc.firstName);
 

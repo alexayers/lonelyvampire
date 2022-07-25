@@ -8,7 +8,7 @@ import {
     Renderer,
     ScreenChangeEvent
 } from "@alexayers/teenytinytwodee";
-import {Vampire} from "../data/vampire";
+import {Vampy} from "../data/vampy";
 import {Npc, NpcManager} from "../data/npc";
 import {EventBus} from "@alexayers/teenytinytwodee/dist/ts/lib/event/eventBus";
 import {Activity, ActivityManager} from "../data/activityManager";
@@ -46,7 +46,6 @@ export class ActivityScreen implements GameScreen {
     private _activity: Activity;
 
     private _conversationTick: number = 0;
-    private _conversationSpeed: number = 1;
     private _word: number = 0;
     private _dialogue: string = "";
     private _npcTokens: Array<string> = [];
@@ -63,12 +62,15 @@ export class ActivityScreen implements GameScreen {
     private _maxQuestions: number = 5;
 
     private _conversationDelay : number;
+    private _conversationSpeed : number = 1500;
+
+    private _fadingIn : number = 1;
 
     init(): void {
         this._color = new Color(0, 0, 0);
 
 
-        Vampire.calling = NpcManager._npcs[0].id;
+        Vampy.calling = NpcManager._npcs[0].id;
 
 
         this._emojis.push("🐶");
@@ -98,7 +100,7 @@ export class ActivityScreen implements GameScreen {
         this._vampyDialogue = "";
 
         this._showChoice = false;
-        this._npc = NpcManager.getNpc(Vampire.calling);
+        this._npc = NpcManager.getNpc(Vampy.calling);
 
         let activityName = this._npc.favoriteActivity;
         this._activity = ActivityManager.getActivity(activityName);
@@ -120,22 +122,25 @@ export class ActivityScreen implements GameScreen {
     calculateExposure(): void {
         switch (this._activity.exposure) {
             case "L":
-                Vampire.exposure += 1;
+                Vampy.exposure += 1;
                 break;
             case "M":
-                Vampire.exposure += 2;
+                Vampy.exposure += 2;
                 break;
             case "H":
-                Vampire.exposure += 3;
+                Vampy.exposure += 3;
                 break;
         }
     }
 
     keyboard(keyCode: number): void {
-        if (this._conversationFlow == ConversationFlow.MINI_GAME) {
-            this.miniGameKeyboard(keyCode);
-        } else {
-            this.conversationKeyboard(keyCode);
+
+        if (this._fadingIn <= 0) {
+            if (this._conversationFlow == ConversationFlow.MINI_GAME) {
+                this.miniGameKeyboard(keyCode);
+            } else {
+                this.conversationKeyboard(keyCode);
+            }
         }
 
     }
@@ -234,104 +239,111 @@ export class ActivityScreen implements GameScreen {
 
     logicLoop(): void {
 
-        if (this._conversationFlow == ConversationFlow.MINI_GAME) {
+        if (this._fadingIn > 0) {
 
-            if (Date.now() > this._delay + 1500) {
-                let randIdx: number = getRandomArrayElement(this._emojis);
-                this._npcDialogue = this._emojis[randIdx];
-                this._vampyChoices = [];
-
-                this._vampyChoices.push(this._emojis[randIdx]);
-
-                for (let i = 0; i < 3; i++) {
-                    randIdx = getRandomArrayElement(this._emojis);
-                    this._vampyChoices.push(this._emojis[randIdx]);
-                }
-
-                this._vampyChoices = arrayShuffle(this._vampyChoices);
-
-                this._currentQuestion++;
-                this._delay = Date.now();
-
-                if (this._currentQuestion >= this._maxQuestions) {
-                    this._conversationFlow = ConversationFlow.INTERSTITIAL;
-                    this._npcDialogue = ActivityConversationManager.getRandomIntermission();
-                    this._vampyChoices = [];
-                }
-            }
+            this._fadingIn -= 0.01;
 
         } else {
-            this._conversationTick++;
 
-            if (this._conversationTick == this._conversationSpeed) {
-                this._conversationTick = 0;
+            if (this._conversationFlow == ConversationFlow.MINI_GAME) {
 
-                if (this._word < this._npcTokens.length) {
-                    this._word++;
+                if (Date.now() > this._delay + 1500) {
+                    let randIdx: number = getRandomArrayElement(this._emojis);
+                    this._npcDialogue = this._emojis[randIdx];
+                    this._vampyChoices = [];
+
+                    this._vampyChoices.push(this._emojis[randIdx]);
+
+                    for (let i = 0; i < 3; i++) {
+                        randIdx = getRandomArrayElement(this._emojis);
+                        this._vampyChoices.push(this._emojis[randIdx]);
+                    }
+
+                    this._vampyChoices = arrayShuffle(this._vampyChoices);
+
+                    this._currentQuestion++;
+                    this._delay = Date.now();
+
+                    if (this._currentQuestion >= this._maxQuestions) {
+                        this._conversationFlow = ConversationFlow.INTERSTITIAL;
+                        this._npcDialogue = ActivityConversationManager.getRandomIntermission();
+                        this._vampyChoices = [];
+                    }
                 }
-            }
 
-            if (Date.now() > this._conversationDelay + 1200 && !this._showChoice) {
+            } else {
+                this._conversationTick++;
 
-                this._conversationDelay = Date.now();
+                if (this._conversationTick == this._conversationSpeed) {
+                    this._conversationTick = 0;
 
-                switch (this._conversationFlow) {
-                    case ConversationFlow.ACTIVITY_START:
-                        this.calculateExposure();
-                        this._npcDialogue = ActivityConversationManager.getNpcGreetingLine();
-                        this._conversationFlow = ConversationFlow.VAMPY_GREETING;
-                        break;
-                    case ConversationFlow.VAMPY_GREETING:
-                        this.calculateExposure();
-                        this._vampyDialogue = ActivityConversationManager.getVampyGreeting();
-                        this._conversationFlow = ConversationFlow.VAMPY_FIRST_CHOICE;
-                        break;
-                    case ConversationFlow.VAMPY_FIRST_CHOICE:
-                        this.calculateExposure();
-                        let good: string = "A.) " + ActivityConversationManager.getVampyFirstResponsePositive();
-                        let neutral: string = "B.) " + ActivityConversationManager.getVampyFirstResponseNeutral();
-                        let negative: string = "C.) " + ActivityConversationManager.getVampyFirstResponseNegative();
-
-                        this._vampyChoices.push(good);
-                        //       this._vampyChoices.push(neutral);
-                        this._vampyChoices.push(negative);
-
-                        this._showChoice = true;
-                        break;
-                    case ConversationFlow.VAMPY_COMMITMENT:
-                        this.calculateExposure();
-                        let commitToActivity: string = "A.) " + ActivityConversationManager.getVampyCommitmentPositive();
-                        let rejectActivity: string = "C.) " + ActivityConversationManager.getVampyCommitmentNegative();
-
-                        this._vampyChoices.push(commitToActivity);
-                        this._vampyChoices.push(rejectActivity);
-
-                        this._showChoice = true;
-                        break;
-                    case ConversationFlow.INTERSTITIAL:
-                        this.calculateExposure();
-                        this._npcDialogue = ActivityConversationManager.getNpcFinalPrompt();
-                        this._conversationFlow = ConversationFlow.VAMPY_FINAL_CHOICE;
-                        break;
-                    case ConversationFlow.VAMPY_FINAL_CHOICE:
-                        this.calculateExposure();
-                        let finalChoiceGood: string = "A.) " + ActivityConversationManager.getVampyFinalChoicePositive();
-                        let finalChoiceNeutral: string = "B.) " + ActivityConversationManager.getVampyFinalChoiceNeutral();
-                        let finalChoiceBad: string = "C.) " + ActivityConversationManager.getVampyFinalChoiceNegatve();
-
-                        this._vampyChoices.push(finalChoiceGood);
-                        //     this._vampyChoices.push(finalChoiceNeutral);
-                        this._vampyChoices.push(finalChoiceBad);
-
-                        this._showChoice = true;
-                        break
-                    case ConversationFlow.CONVERSATION_OVER:
-                        EventBus.publish(new ScreenChangeEvent("apartment"));
-                        break;
+                    if (this._word < this._npcTokens.length) {
+                        this._word++;
+                    }
                 }
+
+                if (Date.now() > this._conversationDelay + this._conversationSpeed && !this._showChoice) {
+
+                    this._conversationDelay = Date.now();
+
+                    switch (this._conversationFlow) {
+                        case ConversationFlow.ACTIVITY_START:
+                            this.calculateExposure();
+                            this._npcDialogue = ActivityConversationManager.getNpcGreetingLine();
+                            this._conversationFlow = ConversationFlow.VAMPY_GREETING;
+                            break;
+                        case ConversationFlow.VAMPY_GREETING:
+                            this.calculateExposure();
+                            this._vampyDialogue = ActivityConversationManager.getVampyGreeting();
+                            this._conversationFlow = ConversationFlow.VAMPY_FIRST_CHOICE;
+                            break;
+                        case ConversationFlow.VAMPY_FIRST_CHOICE:
+                            this.calculateExposure();
+                            let good: string = "A.) " + ActivityConversationManager.getVampyFirstResponsePositive();
+                            let neutral: string = "B.) " + ActivityConversationManager.getVampyFirstResponseNeutral();
+                            let negative: string = "C.) " + ActivityConversationManager.getVampyFirstResponseNegative();
+
+                            this._vampyChoices.push(good);
+                            //       this._vampyChoices.push(neutral);
+                            this._vampyChoices.push(negative);
+
+                            this._showChoice = true;
+                            break;
+                        case ConversationFlow.VAMPY_COMMITMENT:
+                            this.calculateExposure();
+                            let commitToActivity: string = "A.) " + ActivityConversationManager.getVampyCommitmentPositive();
+                            let rejectActivity: string = "C.) " + ActivityConversationManager.getVampyCommitmentNegative();
+
+                            this._vampyChoices.push(commitToActivity);
+                            this._vampyChoices.push(rejectActivity);
+
+                            this._showChoice = true;
+                            break;
+                        case ConversationFlow.INTERSTITIAL:
+                            this.calculateExposure();
+                            this._npcDialogue = ActivityConversationManager.getNpcFinalPrompt();
+                            this._conversationFlow = ConversationFlow.VAMPY_FINAL_CHOICE;
+                            break;
+                        case ConversationFlow.VAMPY_FINAL_CHOICE:
+                            this.calculateExposure();
+                            let finalChoiceGood: string = "A.) " + ActivityConversationManager.getVampyFinalChoicePositive();
+                            let finalChoiceNeutral: string = "B.) " + ActivityConversationManager.getVampyFinalChoiceNeutral();
+                            let finalChoiceBad: string = "C.) " + ActivityConversationManager.getVampyFinalChoiceNegatve();
+
+                            this._vampyChoices.push(finalChoiceGood);
+                            //     this._vampyChoices.push(finalChoiceNeutral);
+                            this._vampyChoices.push(finalChoiceBad);
+
+                            this._showChoice = true;
+                            break
+                        case ConversationFlow.CONVERSATION_OVER:
+                            EventBus.publish(new ScreenChangeEvent("apartment"));
+                            break;
+                    }
+                }
+
+
             }
-
-
         }
 
     }
@@ -354,11 +366,17 @@ export class ActivityScreen implements GameScreen {
         }
 
         this._npc.face.renderConversation(-80, 350, 384);
-        this._npc.face.renderConversation(680, 350, 384);
+        Vampy.render(680, 350, 384, 384);
 
         Renderer.rect(0, 700, 1024, 70, new Color(0, 0, 0));
 
-        Renderer.print("Exposure: " + Vampire.exposure, 50, 730, "Arial", 16, new Color(255, 255, 255));
+
+        if (this._fadingIn > 0) {
+            Renderer.rect(0, 0, 1024, 768, new Color(0, 0, 0, this._fadingIn));
+            Renderer.print("Heading to " + this._activity.activity + "...", 250,250, "Arial", 64, new Color(255,255,255));
+        }
+
+        Renderer.print("Exposure: " + Vampy.exposure, 50, 730, "Arial", 16, new Color(255, 255, 255));
         Renderer.print("Friendship: " + this._points, 150, 730, "Arial", 16, new Color(255, 255, 255));
     }
 
@@ -404,8 +422,6 @@ export class ActivityScreen implements GameScreen {
 
             this.wordWrap(this._npcDialogue, 180, 340, 400, 300);
         }
-
-
 
         if (this._vampyDialogue != "") {
 

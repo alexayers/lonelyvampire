@@ -9,7 +9,7 @@ import {
     WidgetManager
 } from "@alexayers/teenytinytwodee";
 import {NpcManager} from "../data/npc";
-import {Vampire} from "../data/vampire";
+import {Vampy} from "../data/vampy";
 import {EventBus} from "@alexayers/teenytinytwodee/dist/ts/lib/event/eventBus";
 import {FaceManager} from "../data/face";
 import {ButtonWidgetBuilder} from "@alexayers/teenytinytwodee/dist/ts/lib/ui/buttonWidget";
@@ -34,7 +34,7 @@ export class YearBookScreen implements GameScreen {
             let button: ButtonWidget = new ButtonWidgetBuilder(offsetX,offsetY, 128, 128)
                 .withHoverColor(new Color(0,0,90))
                 .withCallBack(()=>{
-                    Vampire.calling = npc.id;
+                    Vampy.calling = npc.id;
                     EventBus.publish(new ScreenChangeEvent("phoneCall"));
                 })
                 .build();

@@ -1,19 +1,21 @@
 import {
+    ButtonWidget,
     Color,
     GameScreen,
     getRandomBetween,
     KeyboardInput,
     MouseButton,
     Renderer,
-    ScreenChangeEvent
+    ScreenChangeEvent, WidgetManager
 } from "@alexayers/teenytinytwodee";
 import {EventBus} from "@alexayers/teenytinytwodee/dist/ts/lib/event/eventBus";
 import {Npc, NpcManager} from "../data/npc";
 import {PhoneConversationManager} from "../data/conversation";
-import {Vampire} from "../data/vampire";
+import {Vampy} from "../data/vampy";
+import {ButtonWidgetBuilder} from "@alexayers/teenytinytwodee/dist/ts/lib/ui/buttonWidget";
 
 export enum ConversationFlow {
-   VAMPY_OPENING,
+    VAMPY_OPENING,
     NPC_REPLY,
     VAMPY_CHOICE,
     NPC_FINAL,
@@ -32,20 +34,38 @@ export class PhoneCallScreen implements GameScreen {
 
     private _backgroundColor: Color;
 
-    private _conversationDelay : number;
+    private _conversationDelay: number;
     private _npcDialogue: string;
     private _showChoice: boolean = false;
 
+    private _conversationSpeed: number = 1;
+
+    private _widgetManager : WidgetManager;
+
     init(): void {
         this._backgroundColor = new Color(56, 56, 56);
+
+        this._widgetManager = new WidgetManager();
+
+        let positiveButton : ButtonWidget = new ButtonWidgetBuilder(60,60,512,512)
+            .withColor(new Color(0,100,0))
+            .withHoverColor(new Color(0, 140,0))
+            .build();
+
+        let neutralButton : ButtonWidget = new ButtonWidgetBuilder(0,0,0,0)
+            .build();
+
+        let negativeButton : ButtonWidget = new ButtonWidgetBuilder(0,0,0,0)
+            .build();
+
+        this._widgetManager.register(positiveButton);
+    //    this._widgetManager.register(neutralButton);
+    //    this._widgetManager.register(negativeButton);
+
     }
 
     keyboard(keyCode: number): void {
-        if (keyCode == KeyboardInput.A && this._canDoActivity) {
-            EventBus.publish(new ScreenChangeEvent("activity"));
-        } else if (keyCode == KeyboardInput.Y) {
-            EventBus.publish(new ScreenChangeEvent("yearbook"));
-        }
+
 
 
         if (this._showChoice) {
@@ -59,7 +79,7 @@ export class PhoneCallScreen implements GameScreen {
                 this._vampyChoices = [];
                 this._vampyDialogue = "";
 
-                if (getRandomBetween(1,100) < 50) {
+                if (getRandomBetween(1, 100) < 50) {
                     this._canDoActivity = true;
                 } else {
                     this._canDoActivity = false;
@@ -76,7 +96,7 @@ export class PhoneCallScreen implements GameScreen {
     }
 
     logicLoop(): void {
-        if (Date.now() > this._conversationDelay + 1200 && !this._showChoice) {
+        if (Date.now() > this._conversationDelay + this._conversationSpeed && !this._showChoice) {
 
             this._conversationDelay = Date.now();
 
@@ -118,9 +138,11 @@ export class PhoneCallScreen implements GameScreen {
     }
 
     mouseClick(x: number, y: number, mouseButton: MouseButton): void {
+        this._widgetManager.mouseClick(x,y, mouseButton);
     }
 
     mouseMove(x: number, y: number): void {
+        this._widgetManager.mouseMove(x,y);
     }
 
     renderLoop(): void {
@@ -132,7 +154,7 @@ export class PhoneCallScreen implements GameScreen {
 
 
         this._npc.face.renderConversation(-80, 350, 384);
-        this._npc.face.renderConversation(680, 350, 384);
+        Vampy.render(680, 350, 384, 384);
 
 
         Renderer.rect(0, 700, 1024, 70, new Color(0, 0, 0));
@@ -149,32 +171,38 @@ export class PhoneCallScreen implements GameScreen {
         let npcWidth: number = Renderer.calculateTextWidth(this._npcDialogue, "normal arial 12px")
 
         if (this._npcDialogue != "") {
-            Renderer.rect(148, 298, npcWidth * 1.5 + 5, 105, new Color(0, 0, 0));
-            Renderer.rect(150, 300, npcWidth * 1.5, 100, new Color(52, 189, 235));
+            Renderer.rect(250, 369, npcWidth * 1.5 + 5, 105, new Color(0, 0, 0));
+            Renderer.rect(252, 372, npcWidth * 1.5, 100, new Color(52, 189, 235));
 
-            this.wordWrap(this._npcDialogue, 180, 340, 400, 300);
+            this.wordWrap(this._npcDialogue, 270, 390, 400, 300);
         }
 
+        // 448
+        // 450
 
         if (this._vampyDialogue != "") {
 
-            Renderer.rect(288, 448, 455, 205, new Color(0, 0, 0));
-            Renderer.rect(290, 450, 450, 200, new Color(199, 58, 93));
+            Renderer.rect(288, 298, 455, 65, new Color(0, 0, 0));
+            Renderer.rect(290, 300, 450, 60, new Color(199, 58, 93));
 
-            Renderer.print(this._vampyDialogue, 300, 480, "Arial", 12, new Color(0, 0, 0));
+            Renderer.print(this._vampyDialogue, 300, 325, "Arial", 12, new Color(0, 0, 0));
         }
 
         if (this._showChoice) {
 
-            if (this._vampyDialogue == "") {
-                Renderer.rect(288, 448, 455, 205, new Color(0, 0, 0));
-                Renderer.rect(290, 450, 450, 200, new Color(199, 58, 93));
-            }
+
+            Renderer.rect(288, 482, 455, 155, new Color(0, 0, 0));
+            Renderer.rect(290, 485, 450, 150, new Color(199, 58, 93));
 
 
-            let offsetY: number = 530;
+            let offsetY: number = 520;
+
+
+            this._widgetManager.render();
 
             for (let i = 0; i < this._vampyChoices.length; i++) {
+
+
                 Renderer.print(this._vampyChoices[i], 300, offsetY, "Arial", 12, new Color(0, 0, 0));
 
                 offsetY += 30;
@@ -190,7 +218,7 @@ export class PhoneCallScreen implements GameScreen {
         this._vampyDialogue = "";
         this._npcDialogue = "";
         this._showChoice = false;
-        this._npc = NpcManager.getNpc(Vampire.calling);
+        this._npc = NpcManager.getNpc(Vampy.calling);
         this._conversationDelay = Date.now();
         this._conversationFlow = ConversationFlow.VAMPY_OPENING;
     }
