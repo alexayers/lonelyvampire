@@ -3,17 +3,16 @@ import {NpcManager} from "./npc";
 import {Vampy} from "./vampy";
 import {ActivityManager} from "./activityManager";
 
-const vampyConversation= require("../../resources/data/vampyConversation.json");
-const npcConversation = require("../../resources/data/npcConversation.json");
 
+const phoneConversation = require("../../resources/data/phoneConversation.json");
 const activityConversation = require("../../resources/data/activityConversation.json");
 
 
 export class PhoneConversationManager {
 
     static getNpcOpeningPhoneLine(): string {
-        let randIdx : number = getRandomArrayElement(npcConversation.phoneCall.start);
-        let line = npcConversation.phoneCall.start[randIdx];
+        let randIdx : number = getRandomArrayElement(phoneConversation.phoneCall.start.npc);
+        let line = phoneConversation.phoneCall.start.npc[randIdx];
 
         if (line.includes("favoriteActivity")) {
             let npc = NpcManager.getNpc(Vampy.calling);
@@ -24,8 +23,8 @@ export class PhoneConversationManager {
     }
 
     static getVampyPositiveOpeningPhoneLine(): string {
-        let randIdx : number = getRandomArrayElement(vampyConversation.phoneCall.goodChoice);
-        let line = vampyConversation.phoneCall.goodChoice[randIdx];
+        let randIdx : number = getRandomArrayElement(phoneConversation.phoneCall.choice.goodChoice);
+        let line = phoneConversation.phoneCall.choice.goodChoice[randIdx];
 
         if (line.includes("favoriteActivity")) {
             let npc = NpcManager.getNpc(Vampy.calling);
@@ -36,8 +35,8 @@ export class PhoneConversationManager {
     }
 
     static getVampyNeutralOpeningPhoneLine(): string {
-        let randIdx : number = getRandomArrayElement(vampyConversation.phoneCall.neutralChoice);
-        let line = vampyConversation.phoneCall.neutralChoice[randIdx];
+        let randIdx : number = getRandomArrayElement(phoneConversation.phoneCall.choice.neutralChoice);
+        let line = phoneConversation.phoneCall.choice.neutralChoice[randIdx];
 
         if (line.includes("favoriteActivity")) {
             let npc = NpcManager.getNpc(Vampy.calling);
@@ -53,8 +52,8 @@ export class PhoneConversationManager {
     }
 
     static getVampyNegativeOpeningPhoneLine(): string {
-        let randIdx : number = getRandomArrayElement(vampyConversation.phoneCall.badChoice);
-        let line = vampyConversation.phoneCall.badChoice[randIdx];
+        let randIdx : number = getRandomArrayElement(phoneConversation.phoneCall.choice.badChoice);
+        let line = phoneConversation.phoneCall.choice.badChoice[randIdx];
 
         if (line.includes("favoriteActivity")) {
             let npc = NpcManager.getNpc(Vampy.calling);
@@ -70,18 +69,18 @@ export class PhoneConversationManager {
     }
 
     static getNpcPositivePhoneClosing(): string {
-        let randIdx : number = getRandomArrayElement(npcConversation.phoneCall.goodEnding);
-        return npcConversation.phoneCall.goodEnding[randIdx];
+        let randIdx : number = getRandomArrayElement(phoneConversation.phoneCall.ending.goodEnding);
+        return phoneConversation.phoneCall.ending.goodEnding[randIdx];
     }
 
     static getNpcNegativePhoneClosing() : string {
-        let randIdx : number = getRandomArrayElement(npcConversation.phoneCall.badEnding);
-        return npcConversation.phoneCall.badEnding[randIdx];
+        let randIdx : number = getRandomArrayElement(phoneConversation.phoneCall.ending.badEnding);
+        return phoneConversation.phoneCall.ending.badEnding[randIdx];
     }
 
     static getVampyOpeningPhoneLine() : string {
-        let randIdx : number = getRandomArrayElement(vampyConversation.phoneCall.start);
-        let line : string = vampyConversation.phoneCall.start[randIdx];
+        let randIdx : number = getRandomArrayElement(phoneConversation.phoneCall.start.vampy);
+        let line : string = phoneConversation.phoneCall.start.vampy[randIdx];
 
         if (line.includes("name")) {
             let npc = NpcManager.getNpc(Vampy.calling);

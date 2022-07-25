@@ -1,0 +1,54 @@
+{
+  "phoneCall": {
+    "start": {
+      "vampy": [
+        "Hi [name], how's it going? What are you up to today?",
+        "Is this [name]? This is Vampy. Do you want to hang out?",
+        "[name]! Uh... hello! Um, if you're not busy, would you want to meet up?",
+        "Uh, hi [name]. So I'm new, and was wondering if you were free today?"
+      ],
+      "npc": [
+        "How's it going! Sure, how about we [favoriteActivity]?",
+        "What's up? I'm [favoriteActivity] soon. But I guess you could tag along?",
+        "Yeah, okay. Some of us are [favoriteActivity]. We can meet up there if you want. Or not.",
+        "What do you need? Oh, are you inviting me to [favoriteActivity]?",
+        "*static* Did you say [favoriteActivity]? *static* And you're paying?"
+      ]
+    },
+    "choice": {
+      "goodChoice": [
+        "Yeah, I [favoriteActivity] all the time. Well, starting today I do, heh heh",
+        "Totally! [favoriteActivity] sounds great!",
+        "Yeah! Actually I've never [favoriteActivity] before. But I guess today I can start",
+        "I love to [favoriteActivity]! Definitely. Yep, love it.",
+        "[favoriteActivity]! Yes, I loooooove that, of course I do."
+      ],
+      "neutralChoice": [
+        "That's cool. Or maybe we could [neutralActivity] instead?",
+        "Oh, uh. That's an idea. Actually I... can't [favoriteActivity] on days that end in Y. How about [neutralActivity] instead?",
+        "Sure, everyone [favoriteActivity]. But I was thinking we could [neutralActivity] instead. Y'know, try something new?"
+      ],
+      "badChoice": [
+        "[favoriteActivity] is so old hat. Let's [dislikedActivity] instead!",
+        "Or... crazy idea... we could [dislikedActivity] instead. ... Hello?"
+      ]
+    },
+    "ending": {
+      "goodEnding": [
+        "Sweet! See you there. Don't forget your sunscreen!",
+        "Cool! See you in a bit. Bring a hat!",
+        "Okay! This should be... interesting.",
+        "Hmm. See you soon."
+      ],
+      "badEnding": [
+        "Nope, sorry!",
+        "No, thanks anyhow. I think.",
+        "Umm, I'm sick... *cough* Sorry! *cough*",
+        "What's that? I hear my mom calling. Gotta go!",
+        "I forgot I'm busy, with that... thing. Y'know. Bye!",
+        "I need to go wash my hair for the next 6 hours. Later!",
+        "Who is this again? I don't know you. *click*"
+      ]
+    }
+  }
+}
