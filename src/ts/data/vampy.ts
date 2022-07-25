@@ -70,15 +70,19 @@ export class Vampy {
 
     static render(x: number, y: number, width: number, height: number) : void {
 
-        Renderer.renderImage(Vampy._body.image, x, y, width+ Vampy._width, height+ Vampy._width);
-        Renderer.renderImage(Vampy._shirt.image, x, y, width+ Vampy._width, height+ Vampy._width);
-        Renderer.renderImage(Vampy._neck.image, x, y, width+ Vampy._width, height+ Vampy._width);
-        Renderer.renderImage(Vampy._head.image, x, y+ Vampy._width, width, height);
-        Renderer.renderImage(Vampy._mouth.image, x, y+ Vampy._width, width, height);
-        Renderer.renderImage(Vampy._nose.image, x, y+ Vampy._width, width, height);
+        Renderer.renderImage(Vampy._head.image, x, y+ Vampy._width, width, height, true);
+        Renderer.renderImage(Vampy._hair.image, x, y+ Vampy._width, width, height, true);
+
+
+        Renderer.renderImage(Vampy._body.image, x, y, width+ Vampy._width, height+ Vampy._width, true);
+        Renderer.renderImage(Vampy._shirt.image, x, y, width+ Vampy._width, height+ Vampy._width, true);
+        Renderer.renderImage(Vampy._neck.image, x, y, width+ Vampy._width, height+ Vampy._width, true);
+
+        Renderer.renderImage(Vampy._mouth.image, x, y+ Vampy._width, width, height, true);
+        Renderer.renderImage(Vampy._nose.image, x, y+ Vampy._width, width, height, true);
 
         if (Vampy._blinkTick <= Vampy._blinkRate) {
-            Renderer.renderImage(Vampy._eyes.image,x, y+ Vampy._width, width,height);
+            Renderer.renderImage(Vampy._eyes.image,x, y+ Vampy._width, width,height, true);
         } else {
             if (Vampy._blinkTick > Vampy._blinkRate + 10) {
                 Vampy._blinkRate = getRandomBetween(80, 120);
@@ -87,8 +91,8 @@ export class Vampy {
 
         }
 
-        Renderer.renderImage(Vampy._eyeBrows.image, x, y+ Vampy._width, width, height);
-        Renderer.renderImage(Vampy._hair.image, x, y+ Vampy._width, width, height);
+        Renderer.renderImage(Vampy._eyeBrows.image, x, y+ Vampy._width, width, height, true);
+
 
         if (Vampy._tick == Vampy._maxTick) {
             Vampy._tick = 0;
@@ -106,8 +110,6 @@ export class Vampy {
         } else if (Vampy._width == 0) {
             Vampy._breathIn = true;
         }
-
-
 
         Vampy._blinkTick++;
         Vampy._tick++;

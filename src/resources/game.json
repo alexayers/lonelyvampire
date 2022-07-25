@@ -1,4 +1,5 @@
 {
   "audioEnabled": false,
-  "version": "1.0"
+  "version": "1.0",
+  "conversationSpeed": 1500
 }

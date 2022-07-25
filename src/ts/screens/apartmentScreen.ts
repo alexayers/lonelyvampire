@@ -27,7 +27,7 @@ export class ApartmentScreen implements GameScreen {
 
         this._widgetManger = new WidgetManager();
 
-        let yearBook : ButtonWidget = new ButtonWidgetBuilder(450,250,250,250)
+        let yearBook : ButtonWidget = new ButtonWidgetBuilder(150,250,250,250)
             .withCallBack(() => {
                 EventBus.publish(new ScreenChangeEvent("yearbook"));
             })
@@ -62,7 +62,7 @@ export class ApartmentScreen implements GameScreen {
     //    Renderer.print("Y: Look at yearbook", 50,100, "Arial", 50, new Color(0,0,0));
 
 
-        Vampy.render(-80,200, 512,512);
+        Vampy.render(400,200, 512,512);
 
         Renderer.rect(0, 700, 1024, 70, new Color(0,0,0));
 

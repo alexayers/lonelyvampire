@@ -241,7 +241,7 @@ export class ActivityScreen implements GameScreen {
 
         if (this._fadingIn > 0) {
 
-            this._fadingIn -= 0.01;
+            this._fadingIn -= 0.015;
 
         } else {
 
@@ -373,7 +373,7 @@ export class ActivityScreen implements GameScreen {
 
         if (this._fadingIn > 0) {
             Renderer.rect(0, 0, 1024, 768, new Color(0, 0, 0, this._fadingIn));
-            Renderer.print("Heading to " + this._activity.activity + "...", 250,250, "Arial", 64, new Color(255,255,255));
+            Renderer.print("Heading to " + this._activity.activity + "...", 50,250, "Arial", 64, new Color(255,255,255));
         }
 
         Renderer.print("Exposure: " + Vampy.exposure, 50, 730, "Arial", 16, new Color(255, 255, 255));

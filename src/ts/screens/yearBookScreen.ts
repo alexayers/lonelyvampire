@@ -57,27 +57,6 @@ export class YearBookScreen implements GameScreen {
 
     keyboard(keyCode: number): void {
 
-        /*
-        if (keyCode == KeyboardInput.ONE) {
-            Vampire.calling = NpcManager.getNpcs()[0].id;
-            EventBus.publish(new ScreenChangeEvent("apartment"));
-        } else if (keyCode == KeyboardInput.TWO) {
-            Vampire.calling = NpcManager.getNpcs()[1].id;
-            EventBus.publish(new ScreenChangeEvent("apartment"));
-        }else if (keyCode == KeyboardInput.THREE) {
-            Vampire.calling = NpcManager.getNpcs()[2].id;
-            EventBus.publish(new ScreenChangeEvent("apartment"));
-        }else if (keyCode == KeyboardInput.FOUR) {
-            Vampire.calling = NpcManager.getNpcs()[3].id;
-            EventBus.publish(new ScreenChangeEvent("apartment"));
-        }else if (keyCode == KeyboardInput.FIVE) {
-            Vampire.calling = NpcManager.getNpcs()[4].id;
-            EventBus.publish(new ScreenChangeEvent("apartment"));
-        }else if (keyCode == KeyboardInput.SIX) {
-            Vampire.calling = NpcManager.getNpcs()[5].id;
-            EventBus.publish(new ScreenChangeEvent("apartment"));
-        }*/
-
         if (keyCode == KeyboardInput.ESCAPE) {
             EventBus.publish(new ScreenChangeEvent("apartment"));
         }

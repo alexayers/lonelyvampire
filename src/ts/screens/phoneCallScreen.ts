@@ -38,7 +38,7 @@ export class PhoneCallScreen implements GameScreen {
     private _npcDialogue: string;
     private _showChoice: boolean = false;
 
-    private _conversationSpeed: number = 1;
+    private _conversationSpeed: number = 1200;
 
     private _widgetManager : WidgetManager;
 
