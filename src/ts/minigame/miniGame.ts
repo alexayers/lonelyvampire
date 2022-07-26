@@ -7,7 +7,10 @@ export interface BaseEntity {
 export interface Item extends BaseEntity {
     x: number
     y: number
+    width: number
+    height :number
     sprite: Sprite
+    wall: boolean;
 }
 
 export interface Player {
@@ -52,6 +55,8 @@ export abstract class MiniGame {
     abstract playerTouchesEnemy(enemy: string, enemyIdx: number, x: number, y: number): void
     abstract playerTouchesItem(item: string, itemIdx: number, x: number, y: number): void
 
+    abstract enemyTouchesItem(item: string, itemIdx: number, x: number, y: number): void
+
     protected _enemies: Array<Enemy> = [];
     protected _items: Array<Item> = [];
     protected _player : Player;
@@ -75,8 +80,80 @@ export abstract class MiniGame {
         }
 
 
-        Renderer.renderImage(this._player.sprite.image, this._player.x, this._player.y, 64, 64);
+        if (this._player != null && this._player.sprite != null) {
+            Renderer.renderImage(this._player.sprite.image, this._player.x, this._player.y, 64, 64);
+        }
 
+    }
+
+    enemyAi() : void {
+        for (let i = 0; i < this._enemies.length; i++) {
+
+            if (this._enemies[i] == null) {
+                continue;
+            }
+
+            let enemy: Enemy = this._enemies[i];
+
+            if (Date.now() < enemy.lastMove + enemy.timePerMove) {
+                continue
+            }
+
+            enemy.lastMove = Date.now();
+
+            let direction: Direction = this.findItem(enemy.x, enemy.y, "sandCastle");
+
+            switch (direction) {
+                case Direction.UP:
+                    if ((enemy.y - enemy.speed) > 0) {
+
+                       // this.breakSandCastle(enemy.x, enemy.y - enemy.speed);
+
+                        if (this._items[i] && !this._items[i].wall) {
+                            enemy.y -= enemy.speed;
+                            this.enemyTouchesItem(this._items[i].objectType, i, enemy.x,enemy.y);
+
+                        }
+                    }
+                    break;
+                case Direction.DOWN:
+                    if ((enemy.y + enemy.speed) < 700) {
+
+                        //this.breakSandCastle(enemy.x, enemy.y + enemy.speed);
+
+                        if (this._items[i] && !this._items[i].wall) {
+                            enemy.y += enemy.speed;
+                            this.enemyTouchesItem(this._items[i].objectType, i, enemy.x,enemy.y);
+
+                        }
+                    }
+                    break;
+                case Direction.LEFT:
+                    if ((enemy.x - enemy.speed) > 0) {
+
+                     //   this.breakSandCastle(enemy.x - enemy.speed, enemy.y);
+
+                        if (this._items[i] && !this._items[i].wall) {
+                            enemy.x -= enemy.speed;
+                            this.enemyTouchesItem(this._items[i].objectType, i, enemy.x,enemy.y);
+
+                        }
+                    }
+                    break;
+                case Direction.RIGHT:
+                    if ((enemy.x + enemy.speed) < 970) {
+
+                     //   this.breakSandCastle(enemy.x + enemy.speed, enemy.y);
+
+                        if (this._items[i] && !this._items[i].wall) {
+                            enemy.x += enemy.speed;
+                            this.enemyTouchesItem(this._items[i].objectType, i, enemy.x,enemy.y);
+
+                        }
+                    }
+                    break;
+            }
+        }
     }
 
     collisionDetected(x: number, y: number): boolean {
@@ -94,7 +171,12 @@ export abstract class MiniGame {
                 (y + width) > this._items[i].y
             ) {
 
-                this.playerTouchesItem(this._items[i].objectType, i, x,y);
+                if (!this._items[i].wall) {
+                    this.playerTouchesItem(this._items[i].objectType, i, x,y);
+                } else {
+                    return true;
+                }
+
             }
         }
 
@@ -128,7 +210,7 @@ export abstract class MiniGame {
 
             }
         } else if (keyCode == KeyboardInput.DOWN) {
-            if ((this._player.y + this._player.speed) < 700) {
+            if ((this._player.y + this._player.speed) < 640) {
 
                 if (!this.collisionDetected(this._player.x, this._player.y + this._player.speed)) {
                     this._player.y += this._player.speed;

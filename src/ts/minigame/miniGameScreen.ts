@@ -10,9 +10,6 @@ import {GameStage, MiniGame} from "./miniGame";
 import {Npc, NpcManager} from "../data/npc";
 import {Vampy} from "../data/vampy";
 
-
-
-
 export class MiniGameScreen implements GameScreen {
 
     protected _gameStage: GameStage;
@@ -46,6 +43,8 @@ export class MiniGameScreen implements GameScreen {
         }
 
         this._miniGame.gamePlayLogic();
+
+        this._miniGame.enemyAi();
     }
 
     logicLoop(): void {

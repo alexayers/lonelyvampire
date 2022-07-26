@@ -9,7 +9,7 @@ import {
 import {Npc, NpcManager} from "../data/npc";
 import {Vampy} from "../data/vampy";
 import {EventBus} from "@alexayers/teenytinytwodee/dist/ts/lib/event/eventBus";
-import {Direction, Enemy, MiniGame} from "./miniGame";
+import {Direction, Enemy, Item, MiniGame} from "./miniGame";
 
 export class BeachGame extends MiniGame {
 
@@ -48,7 +48,10 @@ export class BeachGame extends MiniGame {
                 x: x,
                 y: y,
                 objectType: "deadCrab",
-                sprite: new Sprite(0, 0, require("../../resources/image/minigames/deadCrab.png"))
+                sprite: new Sprite(0, 0, require("../../resources/image/minigames/deadCrab.png")),
+                wall: false,
+                width: 32,
+                height: 32
             })
 
             this._stoppedCrabs++;
@@ -85,21 +88,30 @@ export class BeachGame extends MiniGame {
             x: getRandomBetween(50, 300),
             y: getRandomBetween(300, 700),
             sprite: new Sprite(0, 0, require("../../resources/image/minigames/sandCastle.png")),
-            objectType: "sandCastle"
+            objectType: "sandCastle",
+            wall: false,
+            width: 32,
+            height: 32
         });
 
         this._items.push({
             x: getRandomBetween(300, 600),
             y: getRandomBetween(300, 700),
             sprite: new Sprite(0, 0, require("../../resources/image/minigames/sandCastle.png")),
-            objectType: "sandCastle"
+            objectType: "sandCastle",
+            wall: false,
+            width: 32,
+            height: 32
         });
 
         this._items.push({
             x: getRandomBetween(600, 900),
             y: getRandomBetween(300, 700),
             sprite: new Sprite(0, 0, require("../../resources/image/minigames/sandCastle.png")),
-            objectType: "sandCastle"
+            objectType: "sandCastle",
+            wall: false,
+            width: 32,
+            height: 32
         });
     }
 
@@ -119,49 +131,32 @@ export class BeachGame extends MiniGame {
             });
         }
 
-        for (let i = 0; i < this._enemies.length; i++) {
 
-            if (this._enemies[i] == null) {
-                continue;
-            }
+    }
 
-            let enemy: Enemy = this._enemies[i];
+    enemyTouchesItem(itemName: string, itemIdx: number, x: number, y: number) {
 
-            if (Date.now() < enemy.lastMove + enemy.timePerMove) {
-                continue
-            }
+        if (itemName == "sandCastle") {
 
-            enemy.lastMove = Date.now();
+            let item : Item = this._items[itemIdx];
 
-            let direction: Direction = this.findItem(enemy.x, enemy.y, "sandCastle");
+            if (x < (item.x + item.width) &&
+                (x + item.width) > item.x &&
+                y < (item.y + item.width) &&
+                (y + item.width) > item.y
+            ) {
+                this._items[itemIdx] = null;
 
-            switch (direction) {
-                case Direction.UP:
-                    if ((enemy.y - enemy.speed) > 0) {
-                        enemy.y -= enemy.speed;
-                        this.breakSandCastle(enemy.x, enemy.y - enemy.speed);
-                    }
-                    break;
-                case Direction.DOWN:
-                    if ((enemy.y + enemy.speed) < 700) {
-                        enemy.y += enemy.speed;
-                        this.breakSandCastle(enemy.x, enemy.y + enemy.speed);
-                    }
-                    break;
-                case Direction.LEFT:
-                    if ((enemy.x - enemy.speed) > 0) {
-                        enemy.x -= enemy.speed;
-                        this.breakSandCastle(enemy.x - enemy.speed, enemy.y);
-                    }
-                    break;
-                case Direction.RIGHT:
-                    if ((enemy.x + enemy.speed) < 970) {
-                        enemy.x += enemy.speed;
-                        this.breakSandCastle(enemy.x + enemy.speed, enemy.y);
-                    }
-                    break;
+                let npc : Npc = NpcManager.getNpc(Vampy.calling);
+                npc.friendShip -=5;
+
+                this._sandCastles--;
+
+                AudioManager.play("destroy");
+                return true;
             }
         }
+
     }
 
     breakSandCastle(x: number, y: number): boolean {
