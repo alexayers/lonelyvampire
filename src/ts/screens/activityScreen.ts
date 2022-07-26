@@ -99,6 +99,7 @@ export class ActivityScreen implements GameScreen {
         if (PersistentState.hasState("MINI_GAME")) {
             PersistentState.deleteState("MINI_GAME");
             this._conversationFlow = ConversationFlow.INTERSTITIAL;
+            this._fadingIn = 1;
         } else {
             this._delay = Date.now();
             this._points = 0;

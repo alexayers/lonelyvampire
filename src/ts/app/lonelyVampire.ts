@@ -7,7 +7,7 @@ import {NpcManager} from "../data/npc";
 import {FaceManager} from "../data/face";
 import {PhoneCallScreen} from "../screens/phoneCallScreen";
 import {FaceScreen} from "../screens/faceScreen";
-import {BeachGameScreen} from "../screens/beachGameScreen";
+import {BeachGameScreen} from "../minigame/beachGameScreen";
 
 
 export class LonelyVampire extends TeenyTinyTwoDeeApp {
@@ -29,7 +29,7 @@ export class LonelyVampire extends TeenyTinyTwoDeeApp {
 
         this.run({
             "audioEnabled": true
-        }, gameScreens, "apartment");
+        }, gameScreens, "beach");
     }
 
 }
