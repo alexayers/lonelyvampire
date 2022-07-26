@@ -7,6 +7,8 @@ import {
 import {EventBus} from "@alexayers/teenytinytwodee/dist/ts/lib/event/eventBus";
 import {BeachGame} from "./beachGame";
 import {GameStage, MiniGame} from "./miniGame";
+import {Npc, NpcManager} from "../data/npc";
+import {Vampy} from "../data/vampy";
 
 
 
@@ -25,7 +27,7 @@ export class MiniGameScreen implements GameScreen {
 
     keyboard(keyCode: number): void {
         if (this._gameStage == GameStage.PLAY) {
-            this.gameControls(keyCode);
+            this._miniGame.gameControls(keyCode);
         } else if (this._gameStage == GameStage.INSTRUCTIONS) {
             if (keyCode == KeyboardInput.ENTER) {
                 this._gameStage = GameStage.PLAY;
@@ -35,38 +37,7 @@ export class MiniGameScreen implements GameScreen {
         }
     }
 
-    protected gameControls(keyCode: number) : void {
-        if (keyCode == KeyboardInput.UP) {
-            if ((this._miniGame.getPlayer().y - this._miniGame.getPlayer().speed) > 0) {
 
-                if (!this._miniGame.collisionDetected(this._miniGame.getPlayer().x, this._miniGame.getPlayer().y - this._miniGame.getPlayer().speed)) {
-                    this._miniGame.getPlayer().y -= this._miniGame.getPlayer().speed;
-                }
-
-            }
-        } else if (keyCode == KeyboardInput.DOWN) {
-            if ((this._miniGame.getPlayer().y + this._miniGame.getPlayer().speed) < 700) {
-
-                if (!this._miniGame.collisionDetected(this._miniGame.getPlayer().x, this._miniGame.getPlayer().y + this._miniGame.getPlayer().speed)) {
-                    this._miniGame.getPlayer().y += this._miniGame.getPlayer().speed;
-                }
-            }
-        } else if (keyCode == KeyboardInput.LEFT) {
-            if ((this._miniGame.getPlayer().x - this._miniGame.getPlayer().speed) > 0) {
-                if (!this._miniGame.collisionDetected(this._miniGame.getPlayer().x - this._miniGame.getPlayer().speed, this._miniGame.getPlayer().y)) {
-                    this._miniGame.getPlayer().x -= this._miniGame.getPlayer().speed;
-                }
-
-            }
-        } else if (keyCode == KeyboardInput.RIGHT) {
-            if ((this._miniGame.getPlayer().x + this._miniGame.getPlayer().speed) < 970) {
-
-                if (!this._miniGame.collisionDetected(this._miniGame.getPlayer().x + this._miniGame.getPlayer().speed, this._miniGame.getPlayer().y)) {
-                    this._miniGame.getPlayer().x += this._miniGame.getPlayer().speed;
-                }
-            }
-        }
-    }
 
     gameLogic() : void {
         if (Date.now() > this._timePassed + 1_000) {
@@ -109,6 +80,7 @@ export class MiniGameScreen implements GameScreen {
     renderLoop(): void {
 
         this._miniGame.renderGame();
+        this._miniGame.renderEntities();
 
         if (this._gameStage == GameStage.INSTRUCTIONS) {
             this._miniGame.instruction();
@@ -116,7 +88,14 @@ export class MiniGameScreen implements GameScreen {
 
         }
 
+        let npc : Npc = NpcManager.getNpc(Vampy.calling);
+
+        Renderer.print("Friend Score: " + npc.friendShip, 100, 32, "Inconsolata, monospace", 16, new Color(255, 255, 255));
+        Renderer.print("Exposure", 700, 32, "Inconsolata, monospace", 16, new Color(255, 255, 255));
+        Renderer.rect(800, 20, 128, 16, new Color(255, 255, 255));
+
         Renderer.rect(0, 700, 1024, 70, new Color(0, 0, 0));
+        Renderer.print("Time Remaining: " + this._totalTime + " seconds", 400, 740, "Inconsolata, monospace", 16, new Color(255, 255, 255));
     }
 
 

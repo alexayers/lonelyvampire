@@ -1,4 +1,4 @@
-import {Sprite} from "@alexayers/teenytinytwodee";
+import {KeyboardInput, Renderer, Sprite} from "@alexayers/teenytinytwodee";
 
 export interface BaseEntity {
     objectType: string
@@ -49,14 +49,35 @@ export abstract class MiniGame {
     abstract initGame(): void
     abstract loseState(): boolean
     abstract getTotalTime(): number;
-    abstract getPlayer(): Player
     abstract playerTouchesEnemy(enemy: string, enemyIdx: number, x: number, y: number): void
     abstract playerTouchesItem(item: string, itemIdx: number, x: number, y: number): void
 
     protected _enemies: Array<Enemy> = [];
     protected _items: Array<Item> = [];
     protected _player : Player;
-    protected _score: number = 0;
+
+    renderEntities(): void {
+
+        for (let i = 0; i < this._items.length; i++) {
+
+            if (this._items[i] == null) {
+                continue;
+            }
+            Renderer.renderImage(this._items[i].sprite.image, this._items[i].x, this._items[i].y, 64, 64);
+        }
+
+        for (let i = 0; i < this._enemies.length; i++) {
+
+            if (this._enemies[i] == null) {
+                continue;
+            }
+            Renderer.renderImage(this._enemies[i].sprite.image, this._enemies[i].x, this._enemies[i].y, 64, 64);
+        }
+
+
+        Renderer.renderImage(this._player.sprite.image, this._player.x, this._player.y, 64, 64);
+
+    }
 
     collisionDetected(x: number, y: number): boolean {
         let width: number = 32;
@@ -95,6 +116,39 @@ export abstract class MiniGame {
         }
 
         return false;
+    }
+
+    gameControls(keyCode: number) : void {
+        if (keyCode == KeyboardInput.UP) {
+            if ((this._player.y - this._player.speed) > 0) {
+
+                if (!this.collisionDetected(this._player.x, this._player.y - this._player.speed)) {
+                    this._player.y -= this._player.speed;
+                }
+
+            }
+        } else if (keyCode == KeyboardInput.DOWN) {
+            if ((this._player.y + this._player.speed) < 700) {
+
+                if (!this.collisionDetected(this._player.x, this._player.y + this._player.speed)) {
+                    this._player.y += this._player.speed;
+                }
+            }
+        } else if (keyCode == KeyboardInput.LEFT) {
+            if ((this._player.x - this._player.speed) > 0) {
+                if (!this.collisionDetected(this._player.x - this._player.speed, this._player.y)) {
+                    this._player.x -= this._player.speed;
+                }
+
+            }
+        } else if (keyCode == KeyboardInput.RIGHT) {
+            if ((this._player.x + this._player.speed) < 970) {
+
+                if (!this.collisionDetected(this._player.x + this._player.speed, this._player.y)) {
+                    this._player.x += this._player.speed;
+                }
+            }
+        }
     }
 
     findItem(x: number, y: number, item: string): Direction {

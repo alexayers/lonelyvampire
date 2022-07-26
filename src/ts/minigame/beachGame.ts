@@ -9,7 +9,7 @@ import {
 import {Npc, NpcManager} from "../data/npc";
 import {Vampy} from "../data/vampy";
 import {EventBus} from "@alexayers/teenytinytwodee/dist/ts/lib/event/eventBus";
-import {Direction, Enemy, MiniGame, Player} from "./miniGame";
+import {Direction, Enemy, MiniGame} from "./miniGame";
 
 export class BeachGame extends MiniGame {
 
@@ -21,11 +21,6 @@ export class BeachGame extends MiniGame {
     private _stoppedCrabs: number = 0;
     private _lastWave: number = 0;
     private _sandCastles: number;
-
-
-    getPlayer(): Player {
-        return this._player;
-    }
 
     initPlayer() : void {
         this._player = {
@@ -46,7 +41,8 @@ export class BeachGame extends MiniGame {
             this._enemies[enemyIdx] = null;
             AudioManager.play("kill");
 
-            this._score++;
+            let npc : Npc = NpcManager.getNpc(Vampy.calling);
+            npc.friendShip++;
 
             this._items.push({
                 x: x,
@@ -185,7 +181,9 @@ export class BeachGame extends MiniGame {
             ) {
                 this._items[i] = null;
 
-                this._score -= 5;
+                let npc : Npc = NpcManager.getNpc(Vampy.calling);
+                npc.friendShip -=5;
+
                 this._sandCastles--;
 
                 AudioManager.play("destroy");
@@ -218,34 +216,8 @@ export class BeachGame extends MiniGame {
     renderGame(): void {
         Renderer.rect(0, 0, 1024, 768, new Color(226, 214, 159));
         Renderer.rect(0, 0, 1024, 65, new Color(189, 178, 132));
-
         Renderer.rect(0, 0, 1024, 50 + this._wave, new Color(39, 156 + (this._wave * 2), 219 + (this._wave * 2)));
 
-
-        for (let i = 0; i < this._items.length; i++) {
-
-            if (this._items[i] == null) {
-                continue;
-            }
-            Renderer.renderImage(this._items[i].sprite.image, this._items[i].x, this._items[i].y, 64, 64);
-        }
-
-        for (let i = 0; i < this._enemies.length; i++) {
-
-            if (this._enemies[i] == null) {
-                continue;
-            }
-            Renderer.renderImage(this._enemies[i].sprite.image, this._enemies[i].x, this._enemies[i].y, 64, 64);
-        }
-
-
-        Renderer.renderImage(this._player.sprite.image, this._player.x, this._player.y, 64, 64);
-
-
-        Renderer.print("Friend Score: " + this._score, 100, 32, "Inconsolata, monospace", 16, new Color(255, 255, 255));
-   //     Renderer.print("Time Remaining: " + this._totalTime + " seconds", 400, 32, "Inconsolata, monospace", 16, new Color(255, 255, 255));
-        Renderer.print("Exposure", 700, 32, "Inconsolata, monospace", 16, new Color(255, 255, 255));
-        Renderer.rect(800, 20, 128, 16, new Color(255, 255, 255));
 
         this._waveTick++;
 
