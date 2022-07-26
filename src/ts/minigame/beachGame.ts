@@ -9,9 +9,10 @@ import {
 import {Npc, NpcManager} from "../data/npc";
 import {Vampy} from "../data/vampy";
 import {EventBus} from "@alexayers/teenytinytwodee/dist/ts/lib/event/eventBus";
-import {Direction, Enemy, GameStage, MiniGame, MiniGameScreen} from "./miniGameScreen";
+import {Direction, Enemy, MiniGame, Player} from "./miniGame";
 
-export class BeachGameScreen extends MiniGameScreen implements MiniGame {
+export class BeachGame extends MiniGame {
+
 
     private _waveTick: number = 0;
     private _wave: number = 0;
@@ -22,27 +23,8 @@ export class BeachGameScreen extends MiniGameScreen implements MiniGame {
     private _sandCastles: number;
 
 
-    init(): void {
-
-        AudioManager.register("kill", require("../../resources/image/minigames/kill.wav"), false);
-        AudioManager.register("pickup", require("../../resources/image/minigames/pickup.wav"), false);
-        AudioManager.register("destroy", require("../../resources/image/minigames/destroy.wav"), false);
-
-        this.initPlayer();
-        this.initGame();
-
-        this.setLooseState(() => {
-            if (this._sandCastles == 0) {
-                this._gameStage = GameStage.END;
-                EventBus.publish(new ScreenChangeEvent("activity"));
-            }
-        });
-
-        this.setGameContinue(() => {
-            return this._sandCastles > 0 && this._totalTime > 0
-        });
-
-        this.setGamePlayLogic(this.gamePlayLogic);
+    getPlayer(): Player {
+        return this._player;
     }
 
     initPlayer() : void {
@@ -52,8 +34,15 @@ export class BeachGameScreen extends MiniGameScreen implements MiniGame {
             x: 450,
             y: 120
         }
+    }
 
-        this.playerCollisionHandler("crab", (enemyIdx: number, x: number, y: number) => {
+    playerTouchesItem(item: string, itemIdx: number, x: number, y: number): void {
+
+    }
+
+    playerTouchesEnemy(enemy: string, enemyIdx: number, x: number, y: number): void {
+
+        if (enemy == "crab") {
             this._enemies[enemyIdx] = null;
             AudioManager.play("kill");
 
@@ -67,13 +56,23 @@ export class BeachGameScreen extends MiniGameScreen implements MiniGame {
             })
 
             this._stoppedCrabs++;
-        });
+        }
+    }
+
+
+    getTotalTime(): number {
+        return 20;
     }
 
     initGame(): void {
 
+        AudioManager.register("kill", require("../../resources/image/minigames/kill.wav"), false);
+        AudioManager.register("pickup", require("../../resources/image/minigames/pickup.wav"), false);
+        AudioManager.register("destroy", require("../../resources/image/minigames/destroy.wav"), false);
+
+        this.initPlayer();
+
         this._lastWave = Date.now();
-        this._totalTime = 20;
         this._sandCastles = 3;
 
         this._enemies.push({
@@ -244,7 +243,7 @@ export class BeachGameScreen extends MiniGameScreen implements MiniGame {
 
 
         Renderer.print("Friend Score: " + this._score, 100, 32, "Inconsolata, monospace", 16, new Color(255, 255, 255));
-        Renderer.print("Time Remaining: " + this._totalTime + " seconds", 400, 32, "Inconsolata, monospace", 16, new Color(255, 255, 255));
+   //     Renderer.print("Time Remaining: " + this._totalTime + " seconds", 400, 32, "Inconsolata, monospace", 16, new Color(255, 255, 255));
         Renderer.print("Exposure", 700, 32, "Inconsolata, monospace", 16, new Color(255, 255, 255));
         Renderer.rect(800, 20, 128, 16, new Color(255, 255, 255));
 
@@ -270,16 +269,13 @@ export class BeachGameScreen extends MiniGameScreen implements MiniGame {
         }
     }
 
-    renderLoop(): void {
 
-        this.renderGame();
-
-        if (this._gameStage == GameStage.INSTRUCTIONS) {
-            this.instruction();
-        } else if (this._gameStage == GameStage.END) {
-
+    loseState(): boolean {
+        if (this._sandCastles == 0) {
+            EventBus.publish(new ScreenChangeEvent("activity"));
+            return true;
         }
 
-        Renderer.rect(0, 700, 1024, 70, new Color(0, 0, 0));
+        return false;
     }
 }

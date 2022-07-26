@@ -7,7 +7,8 @@ import {NpcManager} from "../data/npc";
 import {FaceManager} from "../data/face";
 import {PhoneCallScreen} from "../screens/phoneCallScreen";
 import {FaceScreen} from "../screens/faceScreen";
-import {BeachGameScreen} from "../minigame/beachGameScreen";
+import {BeachGame} from "../minigame/beachGame";
+import {MiniGameScreen} from "../minigame/miniGameScreen";
 
 
 export class LonelyVampire extends TeenyTinyTwoDeeApp {
@@ -25,7 +26,7 @@ export class LonelyVampire extends TeenyTinyTwoDeeApp {
         gameScreens.set("yearbook", new YearBookScreen());
         gameScreens.set("phoneCall", new PhoneCallScreen());
         gameScreens.set("face", new FaceScreen());
-        gameScreens.set("beach", new BeachGameScreen());
+        gameScreens.set("beach", new MiniGameScreen());
 
         this.run({
             "audioEnabled": true
