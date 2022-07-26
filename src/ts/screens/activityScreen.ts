@@ -14,6 +14,7 @@ import {EventBus} from "@alexayers/teenytinytwodee/dist/ts/lib/event/eventBus";
 import {Activity, ActivityManager} from "../data/activityManager";
 import {ActivityConversationManager} from "../data/conversation";
 import arrayShuffle from "array-shuffle";
+import {PersistentState} from "../data/persistentState";
 
 export enum ConversationFlow {
     ACTIVITY_START,
@@ -93,26 +94,34 @@ export class ActivityScreen implements GameScreen {
     }
 
     onEnter(): void {
-        this._delay = Date.now();
-        this._points = 0;
 
-        this._npcDialogue = "";
-        this._vampyDialogue = "";
 
-        this._showChoice = false;
-        this._npc = NpcManager.getNpc(Vampy.calling);
+        if (PersistentState.hasState("MINI_GAME")) {
+            PersistentState.deleteState("MINI_GAME");
+            this._conversationFlow = ConversationFlow.INTERSTITIAL;
+        } else {
+            this._delay = Date.now();
+            this._points = 0;
 
-        let activityName = this._npc.favoriteActivity;
-        this._activity = ActivityManager.getActivity(activityName);
-        this._conversationFlow = ConversationFlow.ACTIVITY_START;
+            this._npcDialogue = "";
+            this._vampyDialogue = "";
 
-        this._fadingIn = 1;
+            this._showChoice = false;
+            this._npc = NpcManager.getNpc(Vampy.calling);
 
-        this._npcTokens = this._dialogue.split(" ");
-        this._word = 0;
-        this._vampyChoices = [];
+            let activityName = this._npc.favoriteActivity;
+            this._activity = ActivityManager.getActivity(activityName);
+            this._conversationFlow = ConversationFlow.ACTIVITY_START;
 
-        this._conversationDelay = Date.now();
+            this._fadingIn = 1;
+
+            this._npcTokens = this._dialogue.split(" ");
+            this._word = 0;
+            this._vampyChoices = [];
+
+            this._conversationDelay = Date.now();
+        }
+
     }
 
     onExit(): void {
@@ -187,7 +196,7 @@ export class ActivityScreen implements GameScreen {
                     this._showChoice = false;
                     this._vampyChoices = [];
                     this._vampyDialogue = "";
-                    this._npcDialogue = "get ready...";
+                    this._npcDialogue = "Oh no.. the crabs are going to destroy my sand castles!";
                     this._conversationFlow = ConversationFlow.MINI_GAME;
                     this._delay = Date.now();
                 } else if (this._conversationFlow == ConversationFlow.VAMPY_FINAL_CHOICE) {
@@ -246,31 +255,8 @@ export class ActivityScreen implements GameScreen {
         } else {
 
             if (this._conversationFlow == ConversationFlow.MINI_GAME) {
-
-                if (Date.now() > this._delay + 1500) {
-                    let randIdx: number = getRandomArrayElement(this._emojis);
-                    this._npcDialogue = this._emojis[randIdx];
-                    this._vampyChoices = [];
-
-                    this._vampyChoices.push(this._emojis[randIdx]);
-
-                    for (let i = 0; i < 3; i++) {
-                        randIdx = getRandomArrayElement(this._emojis);
-                        this._vampyChoices.push(this._emojis[randIdx]);
-                    }
-
-                    this._vampyChoices = arrayShuffle(this._vampyChoices);
-
-                    this._currentQuestion++;
-                    this._delay = Date.now();
-
-                    if (this._currentQuestion >= this._maxQuestions) {
-                        this._conversationFlow = ConversationFlow.INTERSTITIAL;
-                        this._npcDialogue = ActivityConversationManager.getRandomIntermission();
-                        this._vampyChoices = [];
-                    }
-                }
-
+                PersistentState.setState("MINI_GAME", true);
+                EventBus.publish(new ScreenChangeEvent("beach"));
             } else {
                 this._conversationTick++;
 
