@@ -8,7 +8,7 @@ export interface Item extends BaseEntity {
     x: number
     y: number
     width: number
-    height :number
+    height: number
     sprite: Sprite
     wall: boolean;
 }
@@ -47,20 +47,28 @@ export enum GameStage {
 export abstract class MiniGame {
 
     abstract instruction(): void
+
     abstract renderGame(): void
+
     abstract gamePlayLogic(): void
+
     abstract initPlayer(): void
+
     abstract initGame(): void
+
     abstract loseState(): boolean
+
     abstract getTotalTime(): number;
+
     abstract playerTouchesEnemy(enemy: string, enemyIdx: number, x: number, y: number): void
+
     abstract playerTouchesItem(item: string, itemIdx: number, x: number, y: number): void
 
     abstract enemyTouchesItem(item: string, itemIdx: number, x: number, y: number): void
 
     protected _enemies: Array<Enemy> = [];
     protected _items: Array<Item> = [];
-    protected _player : Player;
+    protected _player: Player;
 
     renderEntities(): void {
 
@@ -87,7 +95,7 @@ export abstract class MiniGame {
 
     }
 
-    enemyAi() : void {
+    enemyAi(): void {
         for (let i = 0; i < this._enemies.length; i++) {
 
             if (this._enemies[i] == null) {
@@ -102,54 +110,61 @@ export abstract class MiniGame {
 
             enemy.lastMove = Date.now();
 
-            let direction: Direction = this.findItem(enemy.x, enemy.y, enemy.findItem);
+            let direction: {primary: Direction, secondary: Direction} = this.findItem(enemy.x, enemy.y, enemy.findItem);
 
-
-
-            console.log("I found it !");
-
-            switch (direction) {
-                case Direction.UP:
-                    if ((enemy.y - enemy.speed) > 0) {
-
-                        if (!this.itemCollision(enemy.x, enemy.y - enemy.speed)) {
-                            enemy.y -= enemy.speed;
-                            this.enemyTouchesItem(this._items[i].objectType, i, enemy.x,enemy.y);
-                        }
-                    }
-                    break;
-                case Direction.DOWN:
-                    if ((enemy.y + enemy.speed) < 700) {
-
-                        if (!this.itemCollision(enemy.x, enemy.y + enemy.speed)) {
-                            enemy.y += enemy.speed;
-                            this.enemyTouchesItem(this._items[i].objectType, i, enemy.x,enemy.y);
-                        }
-                    }
-                    break;
-                case Direction.LEFT:
-                    if ((enemy.x - enemy.speed) > 0) {
-                        if (!this.itemCollision(enemy.x - enemy.speed, enemy.y)) {
-                            enemy.x -= enemy.speed;
-                            this.enemyTouchesItem(this._items[i].objectType, i, enemy.x,enemy.y);
-
-                        }
-                    }
-                    break;
-                case Direction.RIGHT:
-                    if ((enemy.x + enemy.speed) < 970) {
-
-                        if (!this.itemCollision(enemy.x + enemy.speed, enemy.y)) {
-                            enemy.x += enemy.speed;
-                            this.enemyTouchesItem(this._items[i].objectType, i, enemy.x,enemy.y);
-                        }
-                    }
-                    break;
+            if (!this.movedLocation(enemy, i, direction.primary)) {
+                this.movedLocation(enemy, i, direction.secondary);
             }
+
+
         }
     }
 
-    itemCollision(x: number, y: number) : boolean {
+    movedLocation(enemy: Enemy, itemIdx :number, direction: Direction) : boolean {
+        switch (direction) {
+            case Direction.UP:
+                if ((enemy.y - enemy.speed) > 0) {
+
+                    if (!this.itemCollision(enemy.x, enemy.y - enemy.speed)) {
+                        enemy.y -= enemy.speed;
+                        this.enemyTouchesItem(this._items[itemIdx].objectType, itemIdx, enemy.x, enemy.y);
+                        return true;
+                    }
+                }
+                break;
+            case Direction.DOWN:
+                if ((enemy.y + enemy.speed) < 700) {
+
+                    if (!this.itemCollision(enemy.x, enemy.y + enemy.speed)) {
+                        enemy.y += enemy.speed;
+                        this.enemyTouchesItem(this._items[itemIdx].objectType, itemIdx, enemy.x, enemy.y);
+                        return true;
+                    }
+                }
+                break;
+            case Direction.LEFT:
+                if ((enemy.x - enemy.speed) > 0) {
+                    if (!this.itemCollision(enemy.x - enemy.speed, enemy.y)) {
+                        enemy.x -= enemy.speed;
+                        this.enemyTouchesItem(this._items[itemIdx].objectType, itemIdx, enemy.x, enemy.y);
+                        return true;
+                    }
+                }
+                break;
+            case Direction.RIGHT:
+                if ((enemy.x + enemy.speed) < 970) {
+
+                    if (!this.itemCollision(enemy.x + enemy.speed, enemy.y)) {
+                        enemy.x += enemy.speed;
+                        this.enemyTouchesItem(this._items[itemIdx].objectType, itemIdx, enemy.x, enemy.y);
+                        return true;
+                    }
+                }
+                break;
+        }
+    }
+
+    itemCollision(x: number, y: number): boolean {
         for (let i = 0; i < this._items.length; i++) {
 
             if (this._items[i] == null) {
@@ -163,7 +178,7 @@ export abstract class MiniGame {
             ) {
 
                 if (!this._items[i].wall) {
-                    this.playerTouchesItem(this._items[i].objectType, i, x,y);
+                    this.playerTouchesItem(this._items[i].objectType, i, x, y);
                 } else {
                     return true;
                 }
@@ -192,7 +207,7 @@ export abstract class MiniGame {
                 (y + width) > this._enemies[i].y
             ) {
 
-                this.playerTouchesEnemy(this._enemies[i].objectType, i, x,y);
+                this.playerTouchesEnemy(this._enemies[i].objectType, i, x, y);
                 return true;
             }
         }
@@ -200,7 +215,7 @@ export abstract class MiniGame {
         return false;
     }
 
-    gameControls(keyCode: number) : void {
+    gameControls(keyCode: number): void {
         if (keyCode == KeyboardInput.UP) {
             if ((this._player.y - this._player.speed) > 0) {
 
@@ -233,7 +248,7 @@ export abstract class MiniGame {
         }
     }
 
-    findItem(x: number, y: number, item: string): Direction {
+    findItem(x: number, y: number, item: string): {primary: Direction, secondary: Direction} {
 
         let closestItem: Item = null;
         let closestDistance: number = 90000;
@@ -253,18 +268,36 @@ export abstract class MiniGame {
         }
 
         if (closestItem != null) {
+            let primary : Direction;
+            let secondary : Direction;
 
             if (x < closestItem.x && x + 64 < closestItem.x) {
-                return Direction.RIGHT;
-            } else if (x > closestItem.x && x + 64 > closestItem.x) {
-                return Direction.LEFT;
-            } else if (y > closestItem.y) {
-                return Direction.UP;
-            } else if (y < closestItem.y) {
-                return Direction.DOWN;
+                primary = Direction.RIGHT;
+               // return Direction.RIGHT;
+            }
+
+            if (x > closestItem.x && x + 64 > closestItem.x) {
+                primary = Direction.LEFT;
+               // return Direction.LEFT;
+            }
+
+            if (y > closestItem.y) {
+                secondary = Direction.UP;
+              //  return Direction.UP;
+            }
+
+
+            if (y < closestItem.y) {
+                secondary = Direction.DOWN;
+             //   return Direction.DOWN;
+            }
+
+            return {
+                primary: primary,
+                secondary: secondary
             }
         }
 
-        return Direction.STAY_PUT;
+        return {primary: Direction.STAY_PUT, secondary: Direction.STAY_PUT}
     }
 }
