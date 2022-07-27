@@ -27,7 +27,8 @@ export interface Enemy extends BaseEntity {
     speed: number
     sprite: Sprite
     lastMove: number
-    findItem: string
+    findItem?: string
+    findEnemy?: string
 }
 
 export enum Direction {
@@ -110,58 +111,69 @@ export abstract class MiniGame {
 
             enemy.lastMove = Date.now();
 
-            let direction: {primary: Direction, secondary: Direction} = this.findItem(enemy.x, enemy.y, enemy.findItem);
+            if (enemy.findItem) {
+                let direction: { primary: Direction, secondary: Direction } = this.findItem(enemy.x, enemy.y, enemy.findItem);
 
-            if (!this.movedLocation(enemy, i, direction.primary)) {
-                this.movedLocation(enemy, i, direction.secondary);
+                if (!this.movedLocation(enemy, i, direction.primary)) {
+                    this.movedLocation(enemy, i, direction.secondary);
+                }
+            } else if (enemy.findEnemy) {
+                let direction: { primary: Direction, secondary: Direction } = this.findEnemy(enemy.x, enemy.y, enemy.findEnemy);
+
+                if (!this.movedLocation(enemy, i, direction.primary)) {
+                    this.movedLocation(enemy, i, direction.secondary);
+                }
             }
 
 
         }
     }
 
-    movedLocation(enemy: Enemy, itemIdx :number, direction: Direction) : boolean {
-        switch (direction) {
-            case Direction.UP:
-                if ((enemy.y - enemy.speed) > 0) {
+    movedLocation(enemy: Enemy, itemIdx: number, direction: Direction): boolean {
+
+        try {
+            switch (direction) {
+                case Direction.UP:
+                    // if ((enemy.y - enemy.speed) > 0) {
 
                     if (!this.itemCollision(enemy.x, enemy.y - enemy.speed)) {
                         enemy.y -= enemy.speed;
                         this.enemyTouchesItem(this._items[itemIdx].objectType, itemIdx, enemy.x, enemy.y);
                         return true;
                     }
-                }
-                break;
-            case Direction.DOWN:
-                if ((enemy.y + enemy.speed) < 700) {
+                    //   }
+                    break;
+                case Direction.DOWN:
+                    //  if ((enemy.y + enemy.speed) < 700) {
 
                     if (!this.itemCollision(enemy.x, enemy.y + enemy.speed)) {
                         enemy.y += enemy.speed;
                         this.enemyTouchesItem(this._items[itemIdx].objectType, itemIdx, enemy.x, enemy.y);
                         return true;
                     }
-                }
-                break;
-            case Direction.LEFT:
-                if ((enemy.x - enemy.speed) > 0) {
+                    //   }
+                    break;
+                case Direction.LEFT:
+                    //  if ((enemy.x - enemy.speed) > 0) {
                     if (!this.itemCollision(enemy.x - enemy.speed, enemy.y)) {
                         enemy.x -= enemy.speed;
                         this.enemyTouchesItem(this._items[itemIdx].objectType, itemIdx, enemy.x, enemy.y);
                         return true;
                     }
-                }
-                break;
-            case Direction.RIGHT:
-                if ((enemy.x + enemy.speed) < 970) {
+                    //    }
+                    break;
+                case Direction.RIGHT:
+                    //   if ((enemy.x + enemy.speed) < 970) {
 
                     if (!this.itemCollision(enemy.x + enemy.speed, enemy.y)) {
                         enemy.x += enemy.speed;
                         this.enemyTouchesItem(this._items[itemIdx].objectType, itemIdx, enemy.x, enemy.y);
                         return true;
                     }
-                }
-                break;
-        }
+                    ///   }
+                    break;
+            }
+        }catch (e) {}
     }
 
     itemCollision(x: number, y: number): boolean {
@@ -248,7 +260,7 @@ export abstract class MiniGame {
         }
     }
 
-    findItem(x: number, y: number, item: string): {primary: Direction, secondary: Direction} {
+    findItem(x: number, y: number, item: string): { primary: Direction, secondary: Direction } {
 
         let closestItem: Item = null;
         let closestDistance: number = 90000;
@@ -268,28 +280,81 @@ export abstract class MiniGame {
         }
 
         if (closestItem != null) {
-            let primary : Direction;
-            let secondary : Direction;
+            let primary: Direction;
+            let secondary: Direction;
 
             if (x < closestItem.x && x + 64 < closestItem.x) {
                 primary = Direction.RIGHT;
-               // return Direction.RIGHT;
+                // return Direction.RIGHT;
             }
 
             if (x > closestItem.x && x + 64 > closestItem.x) {
                 primary = Direction.LEFT;
-               // return Direction.LEFT;
+                // return Direction.LEFT;
             }
 
             if (y > closestItem.y) {
                 secondary = Direction.UP;
-              //  return Direction.UP;
+                //  return Direction.UP;
             }
 
 
             if (y < closestItem.y) {
                 secondary = Direction.DOWN;
-             //   return Direction.DOWN;
+                //   return Direction.DOWN;
+            }
+
+            return {
+                primary: primary,
+                secondary: secondary
+            }
+        }
+
+        return {primary: Direction.STAY_PUT, secondary: Direction.STAY_PUT}
+    }
+
+    findEnemy(x: number, y: number, enemy: string): { primary: Direction, secondary: Direction } {
+
+        let closestEnemy: Enemy = null;
+        let closestDistance: number = 90000;
+
+        for (let i = 0; i < this._enemies.length; i++) {
+
+            if (this._enemies[i] == null || this._enemies[i].objectType != enemy) {
+                continue;
+            }
+
+            let manhattanDistance: number = ((Math.abs(x - this._enemies[i].x) + Math.abs(y - this._enemies[i].y)) * 10);
+
+            if (manhattanDistance < closestDistance) {
+                closestDistance = manhattanDistance;
+                closestEnemy = this._enemies[i];
+            }
+        }
+
+        if (closestEnemy != null) {
+            let primary: Direction;
+            let secondary: Direction;
+
+            if (x < closestEnemy.x && x + 64 < closestEnemy.x) {
+                primary = Direction.RIGHT;
+                // return Direction.RIGHT;
+            }
+
+            if (x > closestEnemy.x && x + 64 > closestEnemy.x) {
+                primary = Direction.LEFT;
+                // return Direction.LEFT;
+            }
+
+            if (y > closestEnemy.y) {
+                secondary = Direction.UP;
+                //  return Direction.UP;
+            }
+
+
+            if (y < closestEnemy.y) {
+                secondary = Direction.DOWN;
+                //   return Direction.DOWN;
             }
 
             return {
