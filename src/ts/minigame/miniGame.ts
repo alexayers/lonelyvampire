@@ -27,6 +27,7 @@ export interface Enemy extends BaseEntity {
     speed: number
     sprite: Sprite
     lastMove: number
+    findItem: string
 }
 
 export enum Direction {
@@ -101,39 +102,34 @@ export abstract class MiniGame {
 
             enemy.lastMove = Date.now();
 
-            let direction: Direction = this.findItem(enemy.x, enemy.y, "sandCastle");
+            let direction: Direction = this.findItem(enemy.x, enemy.y, enemy.findItem);
+
+
+
+            console.log("I found it !");
 
             switch (direction) {
                 case Direction.UP:
                     if ((enemy.y - enemy.speed) > 0) {
 
-                       // this.breakSandCastle(enemy.x, enemy.y - enemy.speed);
-
-                        if (this._items[i] && !this._items[i].wall) {
+                        if (!this.itemCollision(enemy.x, enemy.y - enemy.speed)) {
                             enemy.y -= enemy.speed;
                             this.enemyTouchesItem(this._items[i].objectType, i, enemy.x,enemy.y);
-
                         }
                     }
                     break;
                 case Direction.DOWN:
                     if ((enemy.y + enemy.speed) < 700) {
 
-                        //this.breakSandCastle(enemy.x, enemy.y + enemy.speed);
-
-                        if (this._items[i] && !this._items[i].wall) {
+                        if (!this.itemCollision(enemy.x, enemy.y + enemy.speed)) {
                             enemy.y += enemy.speed;
                             this.enemyTouchesItem(this._items[i].objectType, i, enemy.x,enemy.y);
-
                         }
                     }
                     break;
                 case Direction.LEFT:
                     if ((enemy.x - enemy.speed) > 0) {
-
-                     //   this.breakSandCastle(enemy.x - enemy.speed, enemy.y);
-
-                        if (this._items[i] && !this._items[i].wall) {
+                        if (!this.itemCollision(enemy.x - enemy.speed, enemy.y)) {
                             enemy.x -= enemy.speed;
                             this.enemyTouchesItem(this._items[i].objectType, i, enemy.x,enemy.y);
 
@@ -143,12 +139,9 @@ export abstract class MiniGame {
                 case Direction.RIGHT:
                     if ((enemy.x + enemy.speed) < 970) {
 
-                     //   this.breakSandCastle(enemy.x + enemy.speed, enemy.y);
-
-                        if (this._items[i] && !this._items[i].wall) {
+                        if (!this.itemCollision(enemy.x + enemy.speed, enemy.y)) {
                             enemy.x += enemy.speed;
                             this.enemyTouchesItem(this._items[i].objectType, i, enemy.x,enemy.y);
-
                         }
                     }
                     break;
@@ -156,19 +149,17 @@ export abstract class MiniGame {
         }
     }
 
-    collisionDetected(x: number, y: number): boolean {
-        let width: number = 32;
-
+    itemCollision(x: number, y: number) : boolean {
         for (let i = 0; i < this._items.length; i++) {
 
             if (this._items[i] == null) {
                 continue;
             }
 
-            if (x < (this._items[i].x + width) &&
-                (x + width) > this._items[i].x &&
-                y < (this._items[i].y + width) &&
-                (y + width) > this._items[i].y
+            if (x < (this._items[i].x + this._items[i].width) &&
+                (x + this._items[i].width) > this._items[i].x &&
+                y < (this._items[i].y + this._items[i].width) &&
+                (y + this._items[i].width) > this._items[i].y
             ) {
 
                 if (!this._items[i].wall) {
@@ -178,6 +169,15 @@ export abstract class MiniGame {
                 }
 
             }
+        }
+    }
+
+    collisionDetected(x: number, y: number): boolean {
+        let width: number = 32;
+
+
+        if (this.itemCollision(x, y)) {
+            return true;
         }
 
         for (let i = 0; i < this._enemies.length; i++) {

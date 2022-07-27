@@ -9,7 +9,7 @@ import {
 import {Npc, NpcManager} from "../data/npc";
 import {Vampy} from "../data/vampy";
 import {EventBus} from "@alexayers/teenytinytwodee/dist/ts/lib/event/eventBus";
-import {Direction, Enemy, Item, MiniGame} from "./miniGame";
+import {Item, MiniGame} from "./miniGame";
 
 export class BeachGame extends MiniGame {
 
@@ -81,6 +81,7 @@ export class BeachGame extends MiniGame {
             timePerMove: 128,
             lastMove: Date.now(),
             objectType: "crab",
+            findItem: "sandCastle",
             sprite: new Sprite(0, 0, require("../../resources/image/minigames/crab.png"))
         });
 
@@ -127,6 +128,7 @@ export class BeachGame extends MiniGame {
                 timePerMove: 128,
                 lastMove: Date.now(),
                 objectType: "crab",
+                findItem: "sandCastle",
                 sprite: new Sprite(0, 0, require("../../resources/image/minigames/crab.png"))
             });
         }

@@ -1,25 +1,44 @@
 import {MiniGame, Player} from "./miniGame";
-import {Color, getRandomBetween, Renderer, Sprite} from "@alexayers/teenytinytwodee";
+import {Color, getRandomArrayElement, getRandomBetween, Renderer, Sprite} from "@alexayers/teenytinytwodee";
 
 
 export class ArcadeGame extends MiniGame {
 
+    private _gameShift = Date.now();
+    private _lastWinner : number = 0;
+
     gamePlayLogic(): void {
+
+        if (Date.now() > this._gameShift + 10_000) {
+
+            this._gameShift = Date.now();
+            let randIdx : number = getRandomArrayElement(this._items);
+
+            this._items[this._lastWinner].objectType = "arcadeMachine";
+            this._items[this._lastWinner].sprite = new Sprite(0,0,require("../../resources/image/minigames/arcadeMachine.png"));
+
+            this._items[randIdx].objectType = "winner";
+            this._items[randIdx].sprite = new Sprite(0,0,require("../../resources/image/minigames/arcadeHighSore.png"));
+
+            this._lastWinner = randIdx;
+        }
+
     }
 
     getTotalTime(): number {
-        return 20;
+        return 60;
     }
 
     initGame(): void {
 
         this.initPlayer();
 
-        let offsetX : number = 50;
-        let offsetY : number = 50;
+        let offsetX : number = 100;
+        let offsetY : number = 100;
 
-        for (let y = 0; y < 5; y++) {
-            for (let x = 0; x < 7; x++) {
+        for (let y = 0; y < 3; y++) {
+            for (let x = 0; x < 5; x++) {
+
                 this._items.push({
                     x: offsetX,
                     y: offsetY,
@@ -27,15 +46,33 @@ export class ArcadeGame extends MiniGame {
                     objectType: "arcadeMachine",
                     wall: true,
                     width: 32,
-                    height: 32
+                    height: 64
                 });
 
-                offsetX += 96;
+                offsetX += 200;
             }
 
-            offsetX = 50
-            offsetY += 96;
+            offsetX = 100
+            offsetY += 200;
         }
+
+        let randIdx : number = getRandomArrayElement(this._items);
+
+        this._lastWinner = randIdx;
+
+        this._items[randIdx].objectType = "winner";
+        this._items[randIdx].sprite = new Sprite(0,0,require("../../resources/image/minigames/arcadeHighSore.png"));
+
+        this._enemies.push({
+            x: 570,
+            y: 560,
+            speed: 20,
+            timePerMove: 128,
+            lastMove: Date.now(),
+            objectType: "friend",
+            findItem: "winner",
+            sprite: new Sprite(0, 0, require("../../resources/image/minigames/friend.png"))
+        });
     }
 
     initPlayer(): void {
@@ -43,7 +80,7 @@ export class ArcadeGame extends MiniGame {
             speed: 16,
             sprite: new Sprite(0, 0, require("../../resources/image/minigames/player1.png")),
             x: 500,
-            y: 520
+            y: 550
         }
     }
 

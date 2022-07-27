@@ -5,10 +5,10 @@ import {
     MouseButton, Renderer, ScreenChangeEvent,
 } from "@alexayers/teenytinytwodee";
 import {EventBus} from "@alexayers/teenytinytwodee/dist/ts/lib/event/eventBus";
-import {BeachGame} from "./beachGame";
 import {GameStage, MiniGame} from "./miniGame";
 import {Npc, NpcManager} from "../data/npc";
 import {Vampy} from "../data/vampy";
+import {ArcadeGame} from "./arcadeGame";
 
 export class MiniGameScreen implements GameScreen {
 
@@ -18,7 +18,7 @@ export class MiniGameScreen implements GameScreen {
     private _miniGame: MiniGame;
 
     init(): void {
-        this._miniGame = new BeachGame();
+        this._miniGame = new ArcadeGame();
         this._miniGame.initGame();
     }
 
